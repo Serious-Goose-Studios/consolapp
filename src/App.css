@@ -1,38 +1,135 @@
-.App {
+* {
+  box-sizing: border-box;
+}
+
+body {
   text-align: center;
+  height: 100vh;
+  width:  100%;
+  background: linear-gradient(
+    to right,
+    #601c2e 0%,
+    #601c2e 5%,
+    #520000 45%,
+    #520000 65%,
+    #2e0010 95%,
+    #2e0010 100%
+  );
+  margin: auto;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#lightmode{
+  background: transparent;
+  border: none;
+  float: right;
+  position: absolute;
+  bottom: 2%;
+  left: 2%;
+  color: #ffffff;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+
+#logo{
+  position: absolute;
+  top: 25%;
+  right: 10%;
+  height: 500px;
+  width: 500px;
+  visibility: visible;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+#logo:hover{
+  opacity: 0.85;
 }
 
-.App-link {
-  color: #61dafb;
+h1{
+  font-family: sans-serif;
+  font-weight: lighter;
+  position: absolute;
+  top: -50px;
+  left: 5%;
+  color: #ffffff;
+  font-size: 300px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+h2{
+  font-family: sans-serif;
+  font-weight: lighter;
+  position: absolute;
+  top: 200px;
+  left: 35%;
+  color: #ffffff;
+  font-size: 300px;
+}
+
+h3{
+  font-family: sans-serif;
+  font-weight: lighter;
+  position: absolute;
+  top: -25%;
+  left: 0;
+  color: #ffffff;
+  font-size: 200px;
+}
+
+code {
+  font-size: 1.2em;
+}
+
+ul {
+  padding-inline-start: 20px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: serif;
+  margin: auto;
+  padding: 0;
+}
+
+.consoLogo{
+  position: absolute;
+  top: 25%;
+  right: 10%;
+  visibility: hidden;
+}
+.pageButton {
+  background: transparent;
+  border: none;
+  float: right;
+  position: absolute;
+  top: 5%;
+  left: 70%;
+  font-size: 24px;
+  font-family: arial;
+  font-weight: 1000;
+  color: #ffffff;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 100px;
+  display: inline;
+}
+
+#HAC{
+  position: absolute;
+  top: 5%;
+  left: 80%;
+}
+
+#Clubs{
+  position: absolute;
+  top: 5%;
+  left: 70%;
+}
+
+.pageButton:hover {
+  opacity: 0.85;
 }

@@ -1,3 +1,8 @@
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import React, {useState}  from 'react';
+import TigerLogo from './TigerLogo.png';
+import './App.css';
+import Login from './login.js';
 function LightModeSwitch(){
     
     function switchClick(){
@@ -18,13 +23,8 @@ function LightModeSwitch(){
       <input type="checkbox" id="lightmode" className="switch" onClick={switchClick}></input>
     )
   }
-  function Logo(){
-    function logoClick(){
-      window.location.href = "https://amchs.csisd.org";
-    }
-    return(
-      <button className="consoLogo" onClick={logoClick}><img src ="TigerLogo.png" id="logo"></img></button>
-    );
+  function logoClick(){
+    window.location.href = "https://amchs.csisd.org";
   }
   function ClubsButton() {
     function ClubDirectory(){
@@ -32,15 +32,27 @@ function LightModeSwitch(){
     }
 
     return(
-      <button className="pageButton" onClick={ClubDirectory}>Clubs</button>
+      <button id="Clubs" className="pageButton" onClick={ClubDirectory}>Clubs</button>
+    );
+  }
+  function HACButton() {
+    function LoginPage(){
+      window.location.href = "./Clubs.html";
+    }
+
+    return(
+      <button id="HAC" className="pageButton" onClick={LoginPage}>HAC</button>
     );
   }
   let App = function MyApp() {
     return (
       <div>
+        <h1>Consol</h1>
+        <h2>App</h2>  
         <LightModeSwitch />
         <ClubsButton />
-        <Logo />
+        <HACButton />
+        <button className="consoLogo"><img src ={TigerLogo} alt="Consol Tiger" id="logo" onClick={logoClick}></img></button>
       </div>
     );
   }
