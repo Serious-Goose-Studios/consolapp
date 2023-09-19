@@ -1,19 +1,16 @@
 import React from 'react';
 import './login.css';
-import axios from 'axios';
 
 export default function Login(){
     function handleSubmit() {
-        alert('A name was submitted: ' + this.state.value);
+        alert("Not functioning");
     }
     return(
         <div>
-            <h1>Login to HAC</h1>
+            <h3>Login to HAC</h3>
             <form onSubmit={handleSubmit}>
-                <label>
-                <input type="text" id="userin" value="Username"></input>
-                </label>
-                <input id="passin" value="Password"></input>
+                <input type="text" id="userin" defaultValue="Username"></input>
+                <input id="passin" defaultValue="Password"></input>
                 <button type="submit" id="submitlogin">Login</button>
             </form>
         </div>

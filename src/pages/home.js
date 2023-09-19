@@ -29,7 +29,7 @@ function LightModeSwitch(){
   }
   function ClubsButton() {
     function ClubDirectory(){
-      window.location.href = "./Clubs.html";
+      window.location.href = "./clubs";
     }
 
     return(
