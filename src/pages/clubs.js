@@ -3,7 +3,7 @@ import './clubs.css';
 
 export default function Clubs(){
     return(
-        <div>
+        <div id="ClubsPage">
             <h4>Clubs</h4>
         </div>
     )

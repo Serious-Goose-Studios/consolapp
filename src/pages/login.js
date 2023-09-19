@@ -6,8 +6,8 @@ export default function Login(){
         alert("Not functioning");
     }
     return(
-        <div>
-            <h3>Login to HAC</h3>
+        <div id="LoginPage">
+            <h5>Login to HAC</h5>
             <form onSubmit={handleSubmit}>
                 <input type="text" id="userin" defaultValue="Username"></input>
                 <input id="passin" defaultValue="Password"></input>

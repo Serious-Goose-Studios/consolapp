@@ -2,18 +2,16 @@
     box-sizing: border-box;
   }
   
-  body {
+  #ClubsPage {
     text-align: center;
     height: 100vh;
     width:  100%;
     background: linear-gradient(
-      to right,
-      #601c2e 0%,
-      #601c2e 5%,
-      #520000 45%,
-      #520000 65%,
-      #2e0010 95%,
-      #2e0010 100%
+      to right,  
+      #ffffff 0%, 
+      #ffffff 65%, 
+      #601c2e 99%,
+      #601c2e 100%
     );
     margin: auto;
     padding: 0;
@@ -25,6 +23,6 @@
     position: absolute;
     top: -10%;
     left: 5%;
-    color: #ffffff;
+    color: #000000;
     font-size: 100px;
   }
