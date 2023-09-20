@@ -1,9 +1,6 @@
 import React  from 'react';
 import TigerLogo from './TigerLogo.png';
 import './home.css';
-import { BrowserRouter as Router, Routes, Route }
-    from 'react-router-dom';
-import Login from './login.js';
 function LightModeSwitch(){
     
     function switchClick(){
