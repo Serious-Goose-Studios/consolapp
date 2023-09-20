@@ -19,6 +19,50 @@ body {
   padding: 0;
 }
 
+#HAC{
+  position: absolute;
+  top: 5%;
+  left: 80%;
+}
+
+#Clubs{
+  position: absolute;
+  top: 5%;
+  left: 70%;
+}
+
+#ClubsPage {
+  text-align: center;
+  height: 100vh;
+  width:  100%;
+  background: linear-gradient(
+    to right,  
+    #ffffff 0%, 
+    #ffffff 65%, 
+    #601c2e 99%,
+    #601c2e 100%
+  );
+  margin: auto;
+  padding: 0;
+}
+
+#LoginPage {
+  text-align: center;
+  height: 100vh;
+  width:  100%;
+  background: linear-gradient(
+    to right,
+    #601c2e 0%,
+    #601c2e 5%,
+    #520000 45%,
+    #520000 65%,
+    #2e0010 95%,
+    #2e0010 100%
+  );
+  margin: auto;
+  padding: 0;
+}
+
 #lightmode{
   background: transparent;
   border: none;
@@ -41,6 +85,26 @@ body {
 
 #logo:hover{
   opacity: 0.85;
+}
+
+#clist{
+  background: #520000;
+  border-radius: 10px;
+  color: #ffffff;
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  height: 10%;
+  width: 80%;
+}
+
+#cdesc{
+  font-size: 14px;
+  position: relative;
+  top: 20%;
+  left: 2%;
+  width: 60%;
+  text-align: left;
 }
 
 h1{
@@ -73,16 +137,40 @@ h3{
   font-size: 200px;
 }
 
+h4{
+  font-family: sans-serif;
+  font-weight: lighter;
+  position: absolute;
+  top: -10%;
+  left: 5%;
+  color: #000000;
+  font-size: 100px;
+}
+
+h5{
+  font-family: sans-serif;
+  font-weight: lighter;
+  position: absolute;
+  top: -10%;
+  left: 5%;
+  color: #ffffff;
+  font-size: 100px;
+}
+
+h6{
+  background: #520000;
+  position: absolute;
+  top: -40%;
+  left: 1%;
+  font-size: 20px;
+}
+
 code {
   font-size: 1.2em;
 }
 
 ul {
   padding-inline-start: 20px;
-}
-
-* {
-  box-sizing: border-box;
 }
 
 body {
@@ -116,18 +204,6 @@ body {
   text-align: center;
   width: 100px;
   display: inline;
-}
-
-#HAC{
-  position: absolute;
-  top: 5%;
-  left: 80%;
-}
-
-#Clubs{
-  position: absolute;
-  top: 5%;
-  left: 70%;
 }
 
 .pageButton:hover {
