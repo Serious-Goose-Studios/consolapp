@@ -94,18 +94,65 @@ body {
   position: absolute;
   top: 20%;
   left: 10%;
-  height: 10%;
+  height: 20vh;
   width: 80%;
+  font-family: Verdana, Tahoma, sans-serif;
+}
+
+#cname{
+  background: transparent;
+  position: absolute;
+  top: -11%;
+  left: 1%;
+  font-size: 2.5vmax;
+  font-weight: Bold;
+  line-height: 1rem;
+}
+
+#chost{
+  background: transparent;
+  position: absolute;
+  top: -10%;
+  right: 1%;
+  font-size: 2vh;
 }
 
 #cdesc{
-  font-size: 14px;
-  position: relative;
-  top: 20%;
+  font-size: 1.9vmax;
+  font-weight: lighter;
+  position: absolute;
+  top: 15%;
   left: 2%;
-  width: 60%;
+  width: 80%;
+  line-height: 2.5rem;
   text-align: left;
 }
+
+#cimg{
+  background: #ffffff;
+  border-radius: 10px;
+  position: absolute;
+  right: 2%;
+  top: 25%;
+  width: 100px;
+  height: 100px;
+}
+
+#cmeet{
+  background: transparent;
+  position: absolute;
+  bottom: -9%;
+  left: 1%;
+  font-size: 2vh;
+}
+#croom{
+  background: transparent;
+  position: absolute;
+  bottom: -9%;
+  right: 1%;
+  font-size: 2vh;
+}
+
 
 h1{
   font-family: sans-serif;
@@ -155,14 +202,6 @@ h5{
   left: 5%;
   color: #ffffff;
   font-size: 100px;
-}
-
-h6{
-  background: #520000;
-  position: absolute;
-  top: -40%;
-  left: 1%;
-  font-size: 20px;
 }
 
 code {
