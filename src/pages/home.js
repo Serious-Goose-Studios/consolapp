@@ -1,5 +1,5 @@
 import React  from 'react';
-import TigerLogo from './TigerLogo.png';
+import TigerLogo from '../components/TigerLogo.png';
 import './home.css';
 function LightModeSwitch(){
     
