@@ -1,6 +1,6 @@
 import React from 'react';
 import TigerLogo from '../components/TigerLogo.png';
-import Test from '../components/test.js';
+import Test from '../data/test.js';
 
 function ClubListing({ ctitle, sponsor, descript, clogo, nextmeet, roomnum }){
     return (
@@ -8,7 +8,7 @@ function ClubListing({ ctitle, sponsor, descript, clogo, nextmeet, roomnum }){
             <p id="cname">{ctitle}</p>
             <p id="chost">Club Sponsor(s): {sponsor}</p>
             <p id="cdesc">{descript}</p>
-            <img id="cimg" src={clogo} />
+            <img id="cimg" alt="" src={clogo} />
             <p id="cmeet">Next Meeting: {nextmeet}</p>
             <p id="croom">Meeting in Room: {roomnum}</p>
         </span>

@@ -1,11 +1,9 @@
 import React from 'react';
 import Papa from 'papaparse';
-import { useEffect, useState } from 'react';
-
 
 const Test = () => {
   const [rows, setRows] = React.useState([]);  
-  React.useEffect(() => {
+  /*React.useEffect(() => {
     async function getData() {
       const response = await fetch('../data/clubs.csv');
       const reader = response.body.getReader();
@@ -17,11 +15,19 @@ const Test = () => {
       setRows(rows);
     }
     getData();
-  }, []); // [] means just do this once, after initial render
+  }, []); // [] means just do this once, after initial render*/
+  React.useEffect(() => {
+    Papa.parse("../Assets/images/state_wise_data.csv", {
+        download: true,
+        complete: data => {
+            setRows(data.data);
+        }
+    });
+}, []);
   console.log(rows)
   return (
     <div className="test">
-      <table rows={rows} />
+      <table dataSource={rows} />
     </div>
   )
 }

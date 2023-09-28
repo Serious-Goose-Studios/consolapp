@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route }
 import Login from './pages/login.js';
 import Home from './pages/home.js';
 import ClubsPage from './pages/clubs.js';
-import Test from './components/test.js';
+import Test from './data/test.js';
 
   let App = function MyApp() {
     return (
