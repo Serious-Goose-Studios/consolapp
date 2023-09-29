@@ -1,13 +1,26 @@
 import React from 'react';
+import axios from 'axios'
+
 
 export default function Login(){
-    function handleSubmit() {
-        alert("Not functioning");
+    function APIGetRequest(event){
+        event.preventDefault();
+        const config = {
+          headers:{
+            user: document.getElementById("userin").value,
+            pass: document.getElementById("passin").value
+          }
+        };
+        const url = "https://consolapp.tech/API/rank";
+        axios.get(url, config)
+            .then(res=> console.log(res))
+            .catch(err=> console.log(err))
+        console.log(config);
     }
     return(
         <div id="LoginPage">
             <h5>Login to HAC</h5>
-            <form onSubmit={handleSubmit}>
+            <form id="HACLogin" onSubmit={APIGetRequest}>
                 <input type="text" id="userin" defaultValue="Username" />
                 <input id="passin" defaultValue="Password" />
                 <button type="submit" id="submitlogin">Login</button>

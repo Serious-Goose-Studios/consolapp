@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Routes, Route }
 import Login from './pages/login.js';
 import Home from './pages/home.js';
 import ClubsPage from './pages/clubs.js';
-import Test from './data/test.js';
 
   let App = function MyApp() {
     return (
@@ -14,8 +13,7 @@ import Test from './data/test.js';
               <Route path='/' exact element={<Home />} />
               <Route path='/login' element={<Login />} />
               <Route path='/home' element={<Home />} />
-              <Route path='/clubs' element={<ClubsPage />} />\
-              <Route path='/test' element={<Test />} />
+              <Route path='/clubs' element={<ClubsPage />} />
             </Routes>
         </Router>
       </div>

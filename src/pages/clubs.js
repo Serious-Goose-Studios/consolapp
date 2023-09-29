@@ -1,6 +1,5 @@
 import React from 'react';
 import TigerLogo from '../components/TigerLogo.png';
-import Test from '../data/test.js';
 
 function ClubListing({ ctitle, sponsor, descript, clogo, nextmeet, roomnum }){
     return (
@@ -15,10 +14,8 @@ function ClubListing({ ctitle, sponsor, descript, clogo, nextmeet, roomnum }){
     );
 }
 
-const ClubsList = [["Newspaper Club", "The Roar is our schools newspaper that shines light on student researched and written topics.", "Mr. Williams", "IDK Lol", "2303"], ["Robotics Club", "Robotics is a club that builds robots to compete in First Tech Challenge.", "Mr. Deere", "Thursday", "2303"]]
 function addClub(){
-    
-    console.log(ClubsList);
+    console.log("added club");
 }
 
 
@@ -27,7 +24,7 @@ export default function ClubsPage(){
         <div id="ClubsPage">
             
             <h4>Clubs</h4>
-            <button id="ccreate" onClick={Test}>Add Club</button>
+            <button id="ccreate" onClick={addClub}>Add Club</button>
             <ClubListing ctitle="Newspaper Club" descript="The Roar is our schools newspaper that shines light on student researched and written topics." clogo={TigerLogo} sponsor="Mr. Williams" nextmeet="Tommorrow" roomnum="2303"/>
         </div>
     )
