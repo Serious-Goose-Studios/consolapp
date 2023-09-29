@@ -153,6 +153,69 @@ body {
   font-size: 2vh;
 }
 
+#HACLogin{
+  position: absolute;
+  top: 30%;
+  left: 10%;
+}
+
+#userField{
+  text-align: center;
+  font-size: 24px;
+  font-family: Verdana, Tahoma, sans-serif;
+  color: #ffffff;
+  position: relative;
+  left: 0%;
+}
+#userin{
+  height: 4vh;
+  width: 18vw;
+  font-size: 18px;
+  position: absolute;
+  top: 100%;
+  left: 0%;
+}
+#passField{
+  text-align: center;
+  font-size: 24px;
+  font-family: Verdana, Tahoma, sans-serif;
+  color: #ffffff;
+  position: relative;
+  left: 120%;
+}
+#passin{
+  height: 4vh;
+  width: 18vw;
+  font-size: 18px;
+  position: absolute;
+  top: 100%;
+  left: 0%;
+}
+
+#submitlogin{
+  background: transparent;
+  border: none;
+  float: right;
+  font-size: 24px;
+  font-family: arial;
+  font-weight: 1000;
+  color: #ffffff;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 100px;
+  display: inline;
+  position: relative;
+  top: 12vh;
+  left: 8vw;
+}
+
+.submitLogin:hover {
+  opacity: 0.85;
+}
 
 h1{
   font-family: sans-serif;
@@ -198,10 +261,10 @@ h5{
   font-family: sans-serif;
   font-weight: lighter;
   position: absolute;
-  top: -10%;
+  top: 0%;
   left: 5%;
   color: #ffffff;
-  font-size: 100px;
+  font-size: 50px;
 }
 
 code {
