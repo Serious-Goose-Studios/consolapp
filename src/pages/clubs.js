@@ -1,5 +1,7 @@
 import React from 'react';
 import TigerLogo from '../components/TigerLogo.png';
+import home from '../components/home.jfif';
+import { homeButton } from './home.js';
 
 function ClubListing({ ctitle, sponsor, descript, clogo, nextmeet, roomnum }){
     return (
@@ -22,7 +24,7 @@ function addClub(){
 export default function ClubsPage(){
     return(
         <div id="ClubsPage">
-            
+            <button id="homeButton" onClick={homeButton}><img id="homeButton" src={home} /></button>
             <h4>Clubs</h4>
             <button id="ccreate" onClick={addClub}>Add Club</button>
             <ClubListing ctitle="Newspaper Club" descript="The Roar is our schools newspaper that shines light on student researched and written topics." clogo={TigerLogo} sponsor="Mr. Williams" nextmeet="Tommorrow" roomnum="2303"/>

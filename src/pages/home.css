@@ -73,6 +73,13 @@ body {
   color: #ffffff;
 }
 
+#homeButton{
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+}
 
 #logo{
   position: absolute;
@@ -168,6 +175,10 @@ body {
   left: 0%;
 }
 #userin{
+  background-color: #3e5a93;
+  border: none;
+  border-radius: 12px;
+  color: #ffffff;
   height: 4vh;
   width: 18vw;
   font-size: 18px;
@@ -181,9 +192,13 @@ body {
   font-family: Verdana, Tahoma, sans-serif;
   color: #ffffff;
   position: relative;
-  left: 120%;
+  left: 20vw;
 }
 #passin{
+  background-color: #3e5a93;
+  border: none;
+  border-radius: 12px;
+  color: #ffffff;
   height: 4vh;
   width: 18vw;
   font-size: 18px;
@@ -208,9 +223,9 @@ body {
   text-align: center;
   width: 100px;
   display: inline;
-  position: relative;
+  position: absolute;
   top: 12vh;
-  left: 8vw;
+  left: 20vw;
 }
 
 .submitLogin:hover {
@@ -261,10 +276,18 @@ h5{
   font-family: sans-serif;
   font-weight: lighter;
   position: absolute;
-  top: 0%;
+  top: -10%;
   left: 5%;
   color: #ffffff;
-  font-size: 50px;
+  font-size: 100px;
+}
+
+#HACLogo{
+  background: transparent;
+  border: none;
+  position: relative;
+  top: 10px;
+  height: 100px;
 }
 
 code {

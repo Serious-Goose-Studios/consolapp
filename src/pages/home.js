@@ -1,6 +1,9 @@
 import React  from 'react';
 import TigerLogo from '../components/TigerLogo.png';
 import './home.css';
+export function homeButton(){
+  window.location.href = './home';
+}
 function LightModeSwitch(){
     
     function switchClick(){
