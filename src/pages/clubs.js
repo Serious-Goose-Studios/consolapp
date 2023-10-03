@@ -24,7 +24,7 @@ function addClub(){
 export default function ClubsPage(){
     return(
         <div id="ClubsPage">
-            <button id="homeButton" onClick={homeButton}><img id="homeButton" src={home} /></button>
+            <button className="cornerButton" onClick={homeButton}><img id="cornerImg" src={home} /></button>
             <h4>Clubs</h4>
             <button id="ccreate" onClick={addClub}>Add Club</button>
             <ClubListing ctitle="Newspaper Club" descript="The Roar is our schools newspaper that shines light on student researched and written topics." clogo={TigerLogo} sponsor="Mr. Williams" nextmeet="Tommorrow" roomnum="2303"/>

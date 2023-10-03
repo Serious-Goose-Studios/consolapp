@@ -23,7 +23,7 @@ export default function Login(){
     }
     return(
         <div id="LoginPage">
-            <button id="homeButton" onClick={homeButton}><img id="homeButton" src={home} /></button>
+            <button className="cornerButton" onClick={homeButton}><img id="cornerImg" src={home} /></button>
             <h5><button id="HACLogo" onClick={HACDirect}><img id="HACLogo" src={HACLogo}/></button>Login</h5>
             <form id="HACLogin" onSubmit={APIGetRequest}>
                 <label id="userField">
