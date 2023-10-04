@@ -7,6 +7,7 @@ function HACDirect(){
     window.location.href='https://hac.csisd.org/HomeAccess/Account/LogOn?ReturnUrl=%2fhomeaccess%2f'
 }
 export default function Login(){
+    var data = [];
     function APIGetRequest(event){
         event.preventDefault();
         const config = {
@@ -15,12 +16,18 @@ export default function Login(){
             pass: document.getElementById("passin").value
           }
         };
-        const url = "https://consolapp.tech/API/rank";
+        const url = "https://backend.consolapp.tech/api/rank";
         axios.get(url, config)
-            .then(res=> console.log(res))
+            .then(res=> data=res.data)
             .catch(err=> console.log(err))
-        console.log(config);
+        
     }
+    function LogData(){
+        console.log('Your Rank:', data);
+    }
+    const listRank = data.map((rank) =>
+        <li>{rank}</li>
+    );
     return(
         <div id="LoginPage">
             <button className="cornerButton" onClick={homeButton}><img id="cornerImg" src={home} /></button>
@@ -34,8 +41,10 @@ export default function Login(){
                     Password
                     <input type="password" id="passin" defaultValue="" />
                 </label>
-                <button type="submit" class="submitLogin" id="submitlogin">Login</button>
+                <button type="submit" className="submitLogin" id="submitlogin">Login</button>
             </form>
+            <ul id="rank">{listRank}</ul>
+            <button onClick={LogData}>Log Data</button>
         </div>
     )
 }

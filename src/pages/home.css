@@ -40,6 +40,37 @@ body {
   right: 0%;
 }
 
+#rank{
+  font-size: 1.9vmax;
+  font-weight: lighter;
+  position: absolute;
+  top: 15%;
+  left: 2%;
+  width: 80%;
+  line-height: 2.5rem;
+  text-align: left;
+}
+
+#settings{
+  display: none;
+  background: #601c2e;
+  border: 2px solid #011627;
+  float: right;
+  font-family: monospace;
+  position: absolute;
+  left: 0px;
+  font-size: 18px;
+  font-family: arial;
+  font-weight: 300;
+  color: #dbfcff;
+  line-height: 60px;
+  margin: auto;
+  padding: 10px;
+  text-align: left;
+  height: 300px;
+  width: 200px;
+}
+
 #HAC{
   position: absolute;
   top: 5%;
@@ -89,7 +120,17 @@ body {
   border: none;
   float: right;
   position: absolute;
-  bottom: 2%;
+  top: 20px;
+  right: -100%;
+  color: #ffffff;
+}
+
+#lightmodelabel{
+  background: transparent;
+  border: none;
+  float: right;
+  position: absolute;
+  top: 3%;
   left: 2%;
   color: #ffffff;
 }
@@ -308,6 +349,16 @@ h5{
   font-size: 100px;
 }
 
+h6{
+  font-family: sans-serif;
+  font-weight: bold;
+  position: absolute;
+  top: -22.5%;
+  left: 20%;
+  color: #ffffff;
+  font-size: 24px;
+}
+
 #HACLogo{
   background: transparent;
   border: none;
@@ -362,9 +413,12 @@ body {
 }
 
 .cornerButton{
+  background-color: transparent;
+  border: none;
   height: 40px;
   width: 40px;
   position: absolute;
   top: -2px;
   left: -2px;
+  color: #555555;
 }
