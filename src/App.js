@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route }
 import Login from './pages/login.js';
 import Home from './pages/home.js';
 import ClubsPage from './pages/clubs.js';
+import HAC from './pages/HAC.js';
 
   let App = function MyApp() {
     return (
@@ -14,6 +15,7 @@ import ClubsPage from './pages/clubs.js';
               <Route path='/login' element={<Login />} />
               <Route path='/home' element={<Home />} />
               <Route path='/clubs' element={<ClubsPage />} />
+              <Route path='/hac' element={<HAC />} />
             </Routes>
         </Router>
       </div>

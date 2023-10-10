@@ -3,35 +3,45 @@ import axios from 'axios'
 import home from '../components/home.jfif';
 import HACLogo from '../components/HACLogo.png';
 import { homeButton } from './home.js';
-function HACDirect(){
-    window.location.href='https://hac.csisd.org/HomeAccess/Account/LogOn?ReturnUrl=%2fhomeaccess%2f'
+function HACDirect() {
+    window.location.href = 'https://hac.csisd.org/HomeAccess/Account/LogOn?ReturnUrl=%2fhomeaccess%2f'
 }
-export default function Login(){
-    var data = [];
-    function APIGetRequest(event){
+var data = [];
+
+export default function Login() {
+    function APIGetRequest(event) {
         event.preventDefault();
         const config = {
-          headers:{
-            user: document.getElementById("userin").value,
-            pass: document.getElementById("passin").value
-          }
+            headers: {
+                user: document.getElementById("userin").value,
+                pass: document.getElementById("passin").value
+            }
         };
         const url = "https://backend.consolapp.tech/api/rank";
         axios.get(url, config)
-            .then(res=> data=res.data)
-            .catch(err=> console.log(err))
+            .then(res => data = res.data,
+                storeData())
+            .catch(err => console.log(err),
+            document.getElementById('loginErr').style.display = "inline")
+        setTimeout(storeData, 2000);
+    }
+    async function storeData(){
         
+        data  = JSON.stringify(data);
+        localStorage.setItem("rankData", data)
+        console.log(data)
     }
-    function LogData(){
-        console.log('Your Rank:', data);
-    }
-    const listRank = data.map((rank) =>
-        <li>{rank}</li>
-    );
-    return(
+    function LoginErr(){
+        return(
+            <div id="loginErr">
+                <p id="loginErrMessage">Incorrect Username or Password</p>
+            </div>
+        )
+    };
+    return (
         <div id="LoginPage">
             <button className="cornerButton" onClick={homeButton}><img id="cornerImg" src={home} /></button>
-            <h5><button id="HACLogo" onClick={HACDirect}><img id="HACLogo" src={HACLogo}/></button>Login</h5>
+            <h5><button id="HACLogo" onClick={HACDirect}><img id="HACLogo" src={HACLogo} /></button>Login</h5>
             <form id="HACLogin" onSubmit={APIGetRequest}>
                 <label id="userField">
                     Username
@@ -43,8 +53,7 @@ export default function Login(){
                 </label>
                 <button type="submit" className="submitLogin" id="submitlogin">Login</button>
             </form>
-            <ul id="rank">{listRank}</ul>
-            <button onClick={LogData}>Log Data</button>
+            <LoginErr />
         </div>
     )
 }

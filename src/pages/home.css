@@ -77,6 +77,11 @@ body {
   left: 65%;
 }
 
+#loginErr{
+  color:#ffffff;
+  display: none;
+}
+
 #Clubs{
   position: absolute;
   top: 5%;
