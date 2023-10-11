@@ -3,33 +3,35 @@ import axios from 'axios'
 import home from '../components/home.jfif';
 import HACLogo from '../components/HACLogo.png';
 import { homeButton } from './home.js';
+import JSON5 from 'json5';
 function HACDirect() {
     window.location.href = 'https://hac.csisd.org/HomeAccess/Account/LogOn?ReturnUrl=%2fhomeaccess%2f'
 }
 var data = [];
 
 export default function Login() {
-    function APIGetRequest(event) {
+    function APIGetRequest(event){
         event.preventDefault();
-        const config = {
-            headers: {
-                user: document.getElementById("userin").value,
-                pass: document.getElementById("passin").value
-            }
-        };
-        const url = "https://backend.consolapp.tech/api/rank";
-        axios.get(url, config)
-            .then(res => data = res.data,
-                storeData())
-            .catch(err => console.log(err),
-            document.getElementById('loginErr').style.display = "inline")
-        setTimeout(storeData, 2000);
-    }
-    async function storeData(){
-        
-        data  = JSON.stringify(data);
-        localStorage.setItem("rankData", data)
-        console.log(data)
+        let myPromise = new Promise(function APIGetRequest(resolve, reject) {
+            const config = {
+                headers: {
+                    user: document.getElementById("userin").value,
+                    pass: document.getElementById("passin").value
+                }
+            };
+            const url = "https://backend.consolapp.tech/api/rank";
+            axios.get(url, config)
+                .then(function(response){data = response.data;
+                if(response.status){resolve(JSON5.stringify(data.rank))}},
+                function(error){if(error.response.status == 500){ reject("error") }})
+                .catch(err => console.log(err))
+        });
+
+        myPromise.then(
+            function(value){ localStorage.setItem("rankData", value);
+            window.location.href = "./HAC"; },
+            function(error){document.getElementById('loginErr').style.display = "inline";}
+        )
     }
     function LoginErr(){
         return(

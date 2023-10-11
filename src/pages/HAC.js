@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 
-var data = localStorage.getItem("rankData");
+const rank = localStorage.getItem("rankData");
 export default function HAC(){
     function StringDisplay() {
         // State variable to hold the string
@@ -9,7 +9,7 @@ export default function HAC(){
       
         // Function to update the string
         const updateString = () => {
-            setMyString(JSON.stringify(data));
+            setMyString(rank);
         };
 
         return (
@@ -23,7 +23,7 @@ export default function HAC(){
         );
     }
     function LogData(){
-        console.log(data);
+        console.log(rank);
     }
     return(
         <div id="HACPage">
