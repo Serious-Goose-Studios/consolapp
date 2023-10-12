@@ -12,7 +12,7 @@ var data = [];
 export default function Login() {
     function APIGetRequest(event){
         event.preventDefault();
-        let myPromise = new Promise(function APIGetRequest(resolve, reject) {
+        let rankPromise = new Promise(function APIGetRequest(resolve, reject) {
             const config = {
                 headers: {
                     user: document.getElementById("userin").value,
@@ -22,28 +22,40 @@ export default function Login() {
             const url = "https://backend.consolapp.tech/api/rank";
             axios.get(url, config)
                 .then(function(response){data = response.data;
-                if(response.status){resolve(JSON5.stringify(data.rank))}},
-                function(error){if(error.response.status == 500){ reject("error") }})
+                if(data.success === true){resolve(JSON5.stringify(data.rank))}},
+                function(error){if(data.success == false){ reject(data.message) }})
                 .catch(err => console.log(err))
         });
 
-        myPromise.then(
-            function(value){ localStorage.setItem("rankData", value);
+        rankPromise.then(
+            function(value){ localStorage.setItem("rankData", value);},
+            function(error){document.getElementById('loginErr').style.display = "inline";}
+        )
+        let classPromise = new Promise(function APIGetRequest(resolve, reject) {
+            const config = {
+                headers: {
+                    user: document.getElementById("userin").value,
+                    pass: document.getElementById("passin").value
+                }
+            };
+            const url = "https://backend.consolapp.tech/api/assignments";
+            axios.get(url, config)
+                .then(function(response){data = response.data;
+                if(response.status){resolve(JSON5.stringify(data))}},
+                function(error){if(error.response.status !== 200){ reject("error") }})
+                .catch(err => console.log(err))
+        });
+
+        classPromise.then(
+            function(value){ localStorage.setItem("classData", value);
             window.location.href = "./HAC"; },
             function(error){document.getElementById('loginErr').style.display = "inline";}
         )
     }
-    function LoginErr(){
-        return(
-            <div id="loginErr">
-                <p id="loginErrMessage">Incorrect Username or Password</p>
-            </div>
-        )
-    };
     return (
         <div id="LoginPage">
-            <button className="cornerButton" onClick={homeButton}><img id="cornerImg" src={home} /></button>
-            <h5><button id="HACLogo" onClick={HACDirect}><img id="HACLogo" src={HACLogo} /></button>Login</h5>
+            <button className="cornerButton" onClick={homeButton}><img id="cornerImg" alt="cornerHome" src={home} /></button>
+            <h5><button id="HACLogo" onClick={HACDirect}><img id="HACLogo" alt="hacDirect" src={HACLogo} /></button>Login</h5>
             <form id="HACLogin" onSubmit={APIGetRequest}>
                 <label id="userField">
                     Username
@@ -53,9 +65,11 @@ export default function Login() {
                     Password
                     <input type="password" id="passin" defaultValue="" />
                 </label>
+                <div id="loginErr">
+                    <p>Incorrect Username or Password</p>
+                </div>
                 <button type="submit" className="submitLogin" id="submitlogin">Login</button>
             </form>
-            <LoginErr />
         </div>
     )
 }

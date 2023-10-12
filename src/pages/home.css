@@ -77,8 +77,11 @@ body {
   left: 65%;
 }
 
-#loginErr{
-  color:#ffffff;
+#classUpdate{
+  display: none;
+}
+
+#rankUpdate{
   display: none;
 }
 
@@ -272,6 +275,28 @@ body {
   position: absolute;
   top: 100%;
   left: 0%;
+}
+
+#loginErr{
+  background-color: #3e5a93;
+  border: none;
+  border-radius: 12px;
+  color: #ffffff;
+  height: 4vh;
+  width: 18vw;
+  font-size: 18px;
+  position: relative;
+  left: 4.5vw;
+  top: 75px;
+  display: none;
+  /*background: #3e5a93; 
+  border-radius: 2px;
+  color:#ffffff;
+  font-size: 20px;
+  position: relative;
+  left: 4.5vw;
+  top: 75px;
+  display: none;*/
 }
 
 #submitlogin{

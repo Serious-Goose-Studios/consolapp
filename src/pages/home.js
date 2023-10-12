@@ -60,7 +60,7 @@ function SettingsButton() {
   }
 
   return(
-    <button className="cornerButton" onClick={SettingsPage}><img id="cornerImg" src={settingsicon}/></button>
+    <button className="cornerButton" onClick={SettingsPage}><img id="cornerImg" alt="cornerSettings" src={settingsicon}/></button>
   );
 }
 function CloseSettingsButton() {
@@ -88,9 +88,9 @@ export default function Home(){
     <div>
       <h1>Consol</h1>
       <h2>App</h2>
-      <img id="el1" src={element1}/>
-      <img id="el2" src={element2}/>
-      <img id="el3" src={element3}/>
+      <img id="el1" alt="" src={element1}/>
+      <img id="el2" alt="" src={element2}/>
+      <img id="el3" alt="" src={element3}/>
       <SettingsButton /> 
       <Settings />
       <ClubsButton />
