@@ -2,7 +2,10 @@ import React from 'react';
 import { useState, useRef, useEffect } from 'react';
 
 const rank = localStorage.getItem("rankData");
+rank = JSON.parse(rank)
 const classes = localStorage.getItem("classData");
+classes = JSON.parse(classes)
+
 export default function HAC(){
     function RankDisplay(){
         // State variable to hold the string
@@ -10,7 +13,7 @@ export default function HAC(){
       
         // Function to update the string
         const updateString = () => {
-            setRankString(rank);
+            setRankString(rank.toString());
         };
         const buttonRef = useRef(null);
         useEffect(() => {
@@ -34,7 +37,7 @@ export default function HAC(){
       
         // Function to update the string
         const updateString = () => {
-            setClassString(classes);
+            setClassString(classes.toString());
         };
         const buttonRef = useRef(null);
         useEffect(() => {

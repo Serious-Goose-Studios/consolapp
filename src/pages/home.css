@@ -278,26 +278,56 @@ body {
 }
 
 #loginErr{
-  background-color: #3e5a93;
-  border: none;
-  border-radius: 12px;
-  color: #ffffff;
+  background-color: #ff9494 ;
+  margin: 2px;
+  border-left: solid 6px;
+  border-color: #fff;
+  border-radius: 2px;
+  color: #2e2e2e;
   height: 4vh;
   width: 18vw;
-  font-size: 18px;
-  position: relative;
-  left: 4.5vw;
+  font-size: 20px;
+  position: absolute;
+  left: 13vw;
   top: 75px;
   display: none;
-  /*background: #3e5a93; 
-  border-radius: 2px;
-  color:#ffffff;
-  font-size: 20px;
-  position: relative;
-  left: 4.5vw;
-  top: 75px;
-  display: none;*/
 }
+
+#errTxt{
+  position: relative;
+  bottom: 33%;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.loading-spinner {
+  position: absolute;
+  top: 6%;
+  left: 4%;
+  width: 100px;
+  height: 100px;
+  border: 10px solid #f3f3f3; /* Light grey */
+  border-top: 10px solid #383636; /* Black */
+  border-radius: 50%;
+  animation: spinner 1.5s linear infinite;
+}
+
+#loginHeader{
+  font-family: sans-serif;
+  font-weight: lighter;
+  position: absolute;
+  top: -5%;
+  left: 10%;
+  color: #ffffff;
+  font-size: 100px;
+}
+
 
 #submitlogin{
   background: transparent;
@@ -369,16 +399,6 @@ h4{
   font-size: 100px;
 }
 
-h5{
-  font-family: sans-serif;
-  font-weight: lighter;
-  position: absolute;
-  top: -10%;
-  left: 5%;
-  color: #ffffff;
-  font-size: 100px;
-}
-
 h6{
   font-family: sans-serif;
   font-weight: bold;
@@ -392,8 +412,9 @@ h6{
 #HACLogo{
   background: transparent;
   border: none;
-  position: relative;
-  top: 10px;
+  position: fixed;
+  top: 6%;
+  left: 4%;
   height: 100px;
 }
 
