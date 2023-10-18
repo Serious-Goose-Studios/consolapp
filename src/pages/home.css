@@ -354,6 +354,13 @@ body {
   opacity: 0.85;
 }
 
+#rankDisplay{
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  color: #ffffff
+}
+
 h1{
   font-family: sans-serif;
   font-weight: lighter;

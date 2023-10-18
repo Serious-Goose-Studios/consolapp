@@ -1,10 +1,13 @@
 import React from 'react';
 import { useState, useRef, useEffect } from 'react';
 
-const rank = localStorage.getItem("rankData");
+var rank = localStorage.getItem("rankData");
 rank = JSON.parse(rank)
-const classes = localStorage.getItem("classData");
+var classes = localStorage.getItem("classData");
 classes = JSON.parse(classes)
+console.log(classes)
+const classList = Object.keys(classes);
+classList.pop();
 
 export default function HAC(){
     function RankDisplay(){
@@ -13,7 +16,7 @@ export default function HAC(){
       
         // Function to update the string
         const updateString = () => {
-            setRankString(rank.toString());
+            setRankString(rank.rank);
         };
         const buttonRef = useRef(null);
         useEffect(() => {
@@ -24,7 +27,7 @@ export default function HAC(){
         return (
           <div>
             {/* Display the string */}
-            <p>Your Rank: {rankString}</p>
+            <p id="rankDisplay">Your Rank: {rankString}</p>
       
             {/* Button to update the string */}
             <button ref={buttonRef} id="rankUpdate" onClick={updateString}>Update String</button>
@@ -33,25 +36,29 @@ export default function HAC(){
     }
     function ClassesDisplay() {
         // State variable to hold the string
-        const [classString, setClassString] = useState("Login to see class info");
+        const [classArray, setClassArray] = useState(["Login to see class info"]);
       
         // Function to update the string
-        const updateString = () => {
-            setClassString(classes.toString());
+        const updateArray = () => {
+            const updatedArray = classList.map(className => {
+                const classInfo = classes[className];
+                return `${className}: ${classInfo.categories[classInfo.categories.length - 1][5]}`;
+            });
+            setClassArray(updatedArray);
         };
         const buttonRef = useRef(null);
         useEffect(() => {
-            buttonRef.current.addEventListener('click', updateString);
+            buttonRef.current.addEventListener('click', updateArray);
             buttonRef.current.click();
         }, []);
         
         return (
           <div>
             {/* Display the string */}
-            <p>Classes: {classString}</p>
+            <p>{classArray}</p>
       
             {/* Button to update the string */}
-            <button ref={buttonRef} id="classUpdate" onClick={updateString}>Update String</button>
+            <button ref={buttonRef} id="classUpdate" onClick={updateArray}>Update String</button>
           </div>
         );
     }
