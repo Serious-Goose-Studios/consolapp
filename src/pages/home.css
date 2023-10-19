@@ -356,9 +356,22 @@ body {
 
 #rankDisplay{
   position: absolute;
-  right: 0px;
+  right: 10px;
   top: 0px;
   color: #ffffff
+}
+
+#classAverage{
+  color: #ffffff;
+  background-color: #3e5a93;
+  border: solid 1px #ffffff;
+  border-radius: 12px;
+  padding: 10px;
+  width: 50vw;
+  position: relative;
+  top: 10vh;
+  left: 25vw;
+  
 }
 
 h1{

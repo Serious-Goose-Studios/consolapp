@@ -27,7 +27,7 @@ export default function HAC(){
         return (
           <div>
             {/* Display the string */}
-            <p id="rankDisplay">Your Rank: {rankString}</p>
+            <p id="rankDisplay">Rank: {rankString}</p>
       
             {/* Button to update the string */}
             <button ref={buttonRef} id="rankUpdate" onClick={updateString}>Update String</button>
@@ -40,9 +40,27 @@ export default function HAC(){
       
         // Function to update the string
         const updateArray = () => {
-            const updatedArray = classList.map(className => {
+            const updatedArray = classList.map((className, index) => {
                 const classInfo = classes[className];
-                return `${className}: ${classInfo.categories[classInfo.categories.length - 1][5]}`;
+                var classString = `${className}: ${classInfo.average}`;
+                const assignmentList = Object.keys(classInfo.assignments)
+                assignmentList.shift();
+                const classAssignments = assignmentList.map((assignment, assignmentNum) => {
+                    var assignmentInfo = classInfo.assignments[assignment];
+                    var assignmentString = `${assignmentInfo[2]}: ${assignmentInfo[4]}`
+                    return(
+                        <p key={assignmentNum}>
+                            {assignmentString}
+                        </p>
+                    );
+                });
+                return (
+                    <p id="classAverage" key={index}>
+                        {classString}
+                        {classAssignments}
+                        <br />
+                    </p>
+                );
             });
             setClassArray(updatedArray);
         };
@@ -55,7 +73,7 @@ export default function HAC(){
         return (
           <div>
             {/* Display the string */}
-            <p>{classArray}</p>
+            <div>{classArray}</div>
       
             {/* Button to update the string */}
             <button ref={buttonRef} id="classUpdate" onClick={updateArray}>Update String</button>
@@ -64,7 +82,6 @@ export default function HAC(){
     }
     return(
         <div id="HACPage">
-            <p>WIP</p>
             <RankDisplay />
             <ClassesDisplay />
         </div>
