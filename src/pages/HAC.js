@@ -1,5 +1,7 @@
 import React from 'react';
 import { useState, useRef, useEffect } from 'react';
+import { homeButton } from './home.js';
+import home from '../components/home.jfif';
 
 var rank = localStorage.getItem("rankData");
 rank = JSON.parse(rank)
@@ -82,6 +84,7 @@ export default function HAC(){
     }
     return(
         <div id="HACPage">
+            <button className="cornerButton" onClick={homeButton}><img id="cornerImg" alt="cornerHome" src={home} /></button>
             <RankDisplay />
             <ClassesDisplay />
         </div>

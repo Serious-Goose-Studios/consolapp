@@ -53,6 +53,7 @@ export default function Login() {
                 localStorage.setItem("classData", value);
                 if(data.success === true){
                     window.location.href = "./HAC";
+                    localStorage.setItem("loggedIn", true);
                 }
                 else if(data.success === false){
                     document.getElementById('errTxt').innerHTML = data.message;

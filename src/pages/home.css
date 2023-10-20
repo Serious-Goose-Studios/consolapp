@@ -71,10 +71,16 @@ body {
   width: 200px;
 }
 
-#HAC{
+#HACButton{
   position: absolute;
   top: 5%;
   left: 65%;
+}
+
+#loginButton{
+  position: absolute;
+  top: 5%;
+  left: 5%;
 }
 
 #classUpdate{

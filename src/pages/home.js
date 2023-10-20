@@ -5,6 +5,8 @@ import element2 from '../components/element2.png'
 import element3 from '../components/element3.png'
 import settingsicon from '../components/images.jfif';
 import './home.css';
+
+var isLogged = localStorage.getItem("loggedIn");
 export function homeButton(){
   window.location.href = './home';
 }
@@ -47,13 +49,23 @@ function ClubsButton() {
 }
 function HACButton() {
   function LoginPage(){
-    window.location.href = "./login";
+      isLogged ? window.location.href = "./hac" : window.location.href = "./login";
   }
   return(
-    <button id="HAC" className="pageButton" onClick={LoginPage}>HAC</button>
+    <button id="HACButton" className="pageButton" onClick={LoginPage}>HAC</button>
   );
 }
-function SettingsButton() {
+
+function LoginButton() {
+  function LoginPage(){
+    window.location.href = "./login";
+  }
+    return(
+      <button id="loginButton" className="pageButton" onClick={LoginPage}>Login</button>
+    );
+}
+
+function AccountButton() {
   function SettingsPage(){
     document.getElementById('settings').style.display = "inline";
     console.log("clicked")
@@ -91,10 +103,10 @@ export default function Home(){
       <img id="el1" alt="" src={element1}/>
       <img id="el2" alt="" src={element2}/>
       <img id="el3" alt="" src={element3}/>
-      <SettingsButton /> 
       <Settings />
       <ClubsButton />
       <HACButton />
+      {isLogged ? <AccountButton /> : <LoginButton />}
       <button className="consoLogo"><img src ={TigerLogo} alt="Consol Tiger" id="logo" onClick={logoClick}></img></button>
     </div>
       
