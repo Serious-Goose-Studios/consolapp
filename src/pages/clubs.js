@@ -2,6 +2,7 @@ import React from 'react';
 import TigerLogo from '../components/TigerLogo.png';
 import home from '../components/home.jfif';
 import { homeButton } from './home.js';
+import { Typography } from '@mui/material';
 
 function ClubListing({ ctitle, sponsor, descript, clogo, nextmeet, roomnum }){
     return (
@@ -24,9 +25,11 @@ function addClub(){
 export default function ClubsPage(){
     return(
         <div id="ClubsPage">
-            <button className="cornerButton" onClick={homeButton}><img id="cornerImg" alt="cornerHome" src={home} /></button>
-            <h4>Clubs</h4>
-            <button id="ccreate" onClick={addClub}>Add Club</button>
+            <Typography component={'p'} id="NavBar">
+                <button className="cornerButton" onClick={homeButton}><img id="cornerImg" alt="cornerHome" src={home} /></button>
+                <p id="NavTitle">Clubs</p>
+                <button id="ccreate" onClick={addClub}>Add Club</button>
+            </Typography>
             <ClubListing ctitle="Newspaper Club" descript="The Roar is our schools newspaper that shines light on student researched and written topics." clogo={TigerLogo} sponsor="Mr. Williams" nextmeet="Tommorrow" roomnum="2303"/>
         </div>
     )

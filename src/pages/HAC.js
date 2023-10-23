@@ -2,16 +2,26 @@ import React from 'react';
 import { useState, useRef, useEffect } from 'react';
 import { homeButton } from './home.js';
 import home from '../components/home.jfif';
+import { Typography } from '@mui/material';
 
-var rank = localStorage.getItem("rankData");
-rank = JSON.parse(rank)
-var classes = localStorage.getItem("classData");
-classes = JSON.parse(classes)
-console.log(classes)
-const classList = Object.keys(classes);
-classList.pop();
 
 export default function HAC(){
+    var isLogged = localStorage.getItem("loggedIn");
+    if(!isLogged){
+        return(
+            <p>Login to view this page</p>
+        );
+    }
+
+    var rank = localStorage.getItem("rankData");
+    rank = JSON.parse(rank)
+    var classes = localStorage.getItem("classData");
+    classes = JSON.parse(classes)
+    console.log(classes)
+
+    const classList = Object.keys(classes);
+    classList.pop();
+
     function RankDisplay(){
         // State variable to hold the string
         const [rankString, setRankString] = useState("Login to see rank");
@@ -57,11 +67,11 @@ export default function HAC(){
                     );
                 });
                 return (
-                    <p id="classAverage" key={index}>
+                    <Typography component ={'p'} id="classAverage" key={index}>
                         {classString}
                         {classAssignments}
                         <br />
-                    </p>
+                    </Typography>
                 );
             });
             setClassArray(updatedArray);
@@ -84,8 +94,11 @@ export default function HAC(){
     }
     return(
         <div id="HACPage">
-            <button className="cornerButton" onClick={homeButton}><img id="cornerImg" alt="cornerHome" src={home} /></button>
-            <RankDisplay />
+            <Typography component={'p'} id="NavBar">
+                <button className="cornerButton" onClick={homeButton}><img id="cornerImg" alt="cornerHome" src={home} /></button>
+                <p id="NavTitle">HAC</p>
+                <RankDisplay />
+            </Typography>
             <ClassesDisplay />
         </div>
     );

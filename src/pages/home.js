@@ -72,7 +72,7 @@ function AccountButton() {
   }
 
   return(
-    <button className="cornerButton" onClick={SettingsPage}><img id="cornerImg" alt="cornerSettings" src={settingsicon}/></button>
+    <button className="cornerButton" id="account" onClick={SettingsPage}><img id="cornerImg" alt="cornerSettings" src={settingsicon}/></button>
   );
 }
 function CloseSettingsButton() {
@@ -86,11 +86,18 @@ function CloseSettingsButton() {
   );
 }
 function Settings(){
+  function logOut(){
+    localStorage.removeItem("loggedIn");
+    localStorage.removeItem("classData");
+    localStorage.removeItem("rankData");
+    window.location.reload();
+  }
     return(
         <div id="settings">
             <CloseSettingsButton /> 
             <h6>Settings</h6>
             <p id="lightmodelabel">Light Mode<LightModeSwitch /></p>
+            <button id="LogOut" onClick={logOut}>Log Out</button>
         </div>
     )
 };

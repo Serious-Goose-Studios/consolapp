@@ -19,6 +19,25 @@ body {
   padding: 0;
 }
 
+#NavBar{
+  position: fixed;
+  top: 0vh;
+  background-color: #3e5a93;
+  border-bottom: solid 1px #ffffff;
+  min-height: 5vh;
+  width: 100vw;
+  z-index: 100;
+}
+
+#NavTitle{
+  position: absolute;
+  top: -2vh;
+  left: 2.5vw;
+  color: #ffffff;
+  line-height: 24px;
+  font-size: 32px;
+}
+
 #el1{
   height: 350px;
   position: absolute;
@@ -53,6 +72,7 @@ body {
 
 #settings{
   display: none;
+  z-index: 100;
   background: #601c2e;
   border: 2px solid #011627;
   float: right;
@@ -69,6 +89,11 @@ body {
   text-align: left;
   height: 300px;
   width: 200px;
+}
+
+#LogOut{
+  position: absolute;
+  bottom: 10%;
 }
 
 #HACButton{
@@ -150,8 +175,8 @@ body {
 }
 
 #cornerImg{
-  height: 40px;
-  width: 40px;
+  height: 5vh;
+  width: 5vh;
   position: absolute;
   top: 0%;
   left: 0%;
@@ -361,7 +386,7 @@ body {
 }
 
 #rankDisplay{
-  position: absolute;
+  position: fixed;
   right: 10px;
   top: 0px;
   color: #ffffff
@@ -373,11 +398,11 @@ body {
   border: solid 1px #ffffff;
   border-radius: 12px;
   padding: 10px;
+  margin: 10px;
   width: 50vw;
   position: relative;
   top: 10vh;
   left: 25vw;
-  
 }
 
 h1{
@@ -499,3 +524,4 @@ body {
   left: -2px;
   color: #555555;
 }
+
