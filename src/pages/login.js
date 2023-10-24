@@ -45,7 +45,8 @@ export default function Login() {
                     resolve(JSON.stringify(data));
                     setIsLoading(false);
                 })
-                .catch(err => console.log(err))
+                .catch(err => console.log(err),
+                setIsLoading(false))
         });
 
         classPromise.then(

@@ -28,7 +28,7 @@ export default function ClubsPage(){
             <Typography component={'p'} id="NavBar">
                 <button className="cornerButton" onClick={homeButton}><img id="cornerImg" alt="cornerHome" src={home} /></button>
                 <p id="NavTitle">Clubs</p>
-                <button id="ccreate" onClick={addClub}>Add Club</button>
+                <button className="navButton" id="ccreate" onClick={addClub}>Add Club</button>
             </Typography>
             <ClubListing ctitle="Newspaper Club" descript="The Roar is our schools newspaper that shines light on student researched and written topics." clogo={TigerLogo} sponsor="Mr. Williams" nextmeet="Tommorrow" roomnum="2303"/>
         </div>

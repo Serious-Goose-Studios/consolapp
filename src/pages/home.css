@@ -36,6 +36,7 @@ body {
   color: #ffffff;
   line-height: 24px;
   font-size: 32px;
+  font-weight: bolder;
 }
 
 #el1{
@@ -92,8 +93,24 @@ body {
 }
 
 #LogOut{
+  background: transparent;
+  border: none;
+  float: right;
+  font-size: 24px;
+  font-family: arial;
+  font-weight: 1000;
+  color: #ffffff;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 7vw;
+  display: inline;
   position: absolute;
-  bottom: 10%;
+  left: 1.5vw;
+  bottom: 5%;
 }
 
 #HACButton{
@@ -511,6 +528,30 @@ body {
 }
 
 .pageButton:hover {
+  opacity: 0.85;
+}
+
+.navButton {
+  background: transparent;
+  border: none;
+  float: right;
+  position: absolute;
+  top: 1vh;
+  right: 1vw;
+  font-size: 22px;
+  font-family: arial;
+  color: #ffffff;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 10vh;
+  display: inline;
+}
+
+.navButton:hover {
   opacity: 0.85;
 }
 

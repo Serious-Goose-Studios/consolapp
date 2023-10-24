@@ -14,7 +14,7 @@ function LightModeSwitch(){
   function switchClick(){
     if(document.getElementById("lightmode").checked){
       document.getElementById("main").style.background = "linear-gradient(to right,  #ffffff 0%, #ffffff 65%, #601c2e 99%,#601c2e 100%)";
-      document.getElementById("HAC").style.color = "#000000";
+      document.getElementById("HACButton").style.color = "#000000";
       document.getElementById("Clubs").style.color = "#000000";
       document.querySelector("h1").style.color = "#000000";
       document.querySelector("h2").style.color = "#000000";
@@ -23,8 +23,8 @@ function LightModeSwitch(){
     }
     else{
       document.getElementById("main").style.background = "linear-gradient(to right,  #601c2e 0%,#601c2e 5%,#520000 45%,#520000 65%,#2e0010 95%,#2e0010 100%)";
-      document.querySelector("#HAC").style.color = "#ffffff";
-      document.querySelector("#Clubs").style.color = "#ffffff";
+      document.getElementById("HACButton").style.color = "#ffffff";
+      document.getElementById("Clubs").style.color = "#ffffff";
       document.querySelector("h1").style.color = "#ffffff";
       document.querySelector("h2").style.color = "#ffffff";
       document.querySelector("h1").style.textShadow = "4px 0 #000, -4px 0 #000, 0 4px #000, 0 -4px #000,2px 2px #000, -2px -2px #000, 2px -2px #000, -2px 2px #000";

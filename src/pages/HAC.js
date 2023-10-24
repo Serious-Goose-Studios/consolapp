@@ -17,7 +17,6 @@ export default function HAC(){
     rank = JSON.parse(rank)
     var classes = localStorage.getItem("classData");
     classes = JSON.parse(classes)
-    console.log(classes)
 
     const classList = Object.keys(classes);
     classList.pop();
@@ -28,7 +27,7 @@ export default function HAC(){
       
         // Function to update the string
         const updateString = () => {
-            setRankString(rank.rank);
+            setRankString(rank.rank.rank);
         };
         const buttonRef = useRef(null);
         useEffect(() => {
