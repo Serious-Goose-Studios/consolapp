@@ -25,7 +25,7 @@ export default function Login() {
             axios.get(url, config)
                 .then(function(response){
                     data = response.data;
-                    resolve(JSON.stringify(data))})
+                    resolve(JSON.stringify(data.rank))})
                 .catch(err => console.log(err))
         });
         rankPromise.then(

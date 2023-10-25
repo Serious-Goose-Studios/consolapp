@@ -27,7 +27,7 @@ export default function HAC(){
       
         // Function to update the string
         const updateString = () => {
-            setRankString(rank.rank.rank);
+            setRankString(rank.rank);
         };
         const buttonRef = useRef(null);
         useEffect(() => {
@@ -39,6 +39,30 @@ export default function HAC(){
           <div>
             {/* Display the string */}
             <p id="rankDisplay">Rank: {rankString}</p>
+      
+            {/* Button to update the string */}
+            <button ref={buttonRef} id="rankUpdate" onClick={updateString}>Update String</button>
+          </div>
+        );
+    }
+    function GPADisplay(){
+        // State variable to hold the string
+        const [gpaString, setGPAString] = useState("Login to see GPA");
+      
+        // Function to update the string
+        const updateString = () => {
+            setGPAString(rank.gpa);
+        };
+        const buttonRef = useRef(null);
+        useEffect(() => {
+            buttonRef.current.addEventListener('click', updateString);
+            buttonRef.current.click();
+        }, []);
+        
+        return (
+          <div>
+            {/* Display the string */}
+            <p id="gpaDisplay">GPA: {gpaString}</p>
       
             {/* Button to update the string */}
             <button ref={buttonRef} id="rankUpdate" onClick={updateString}>Update String</button>
@@ -66,11 +90,11 @@ export default function HAC(){
                     );
                 });
                 return (
-                    <Typography component ={'p'} id="classAverage" key={index}>
+                    <p id="classAverage" key={index}>
                         {classString}
                         {classAssignments}
                         <br />
-                    </Typography>
+                    </p>
                 );
             });
             setClassArray(updatedArray);
@@ -93,11 +117,12 @@ export default function HAC(){
     }
     return(
         <div id="HACPage">
-            <Typography component={'p'} id="NavBar">
+            <p id="NavBar">
                 <button className="cornerButton" onClick={homeButton}><img id="cornerImg" alt="cornerHome" src={home} /></button>
                 <p id="NavTitle">HAC</p>
                 <RankDisplay />
-            </Typography>
+                <GPADisplay />
+            </p>
             <ClassesDisplay />
         </div>
     );
