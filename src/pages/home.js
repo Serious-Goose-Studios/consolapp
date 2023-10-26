@@ -3,7 +3,7 @@ import TigerLogo from '../components/TigerLogo.png';
 import element1 from '../components/element1.png'
 import element2 from '../components/element2.png'
 import element3 from '../components/element3.png'
-import settingsicon from '../components/images.jfif';
+import settingsicon from '../components/settings.png';
 import './home.css';
 
 var isLogged = localStorage.getItem("loggedIn");
@@ -49,6 +49,7 @@ function ClubsButton() {
 }
 function HACButton() {
   function LoginPage(){
+      localStorage.setItem("returnTo", "hac")
       isLogged ? window.location.href = "./hac" : window.location.href = "./login";
   }
   return(
@@ -68,7 +69,6 @@ function LoginButton() {
 function AccountButton() {
   function SettingsPage(){
     document.getElementById('settings').style.display = "inline";
-    console.log("clicked")
   }
 
   return(
@@ -78,7 +78,6 @@ function AccountButton() {
 function CloseSettingsButton() {
   function SettingsPage(){
     document.getElementById('settings').style.display = "none";
-    console.log("clicked")
   }
 
   return(

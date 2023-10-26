@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import axios from 'axios'
-import home from '../components/home.jfif';
+import home from '../components/home.png';
 import HACLogo from '../components/HACLogo.png';
 import { homeButton } from './home.js';
 function HACDirect() {
@@ -53,8 +53,14 @@ export default function Login() {
             function(value){ 
                 localStorage.setItem("classData", value);
                 if(data.success === true){
-                    window.location.href = "./HAC";
+                    var from = localStorage.getItem("returnTo");
                     localStorage.setItem("loggedIn", true);
+                    if(from === "hac")
+                        window.location.href = "./HAC";
+                        
+                    else{
+                        window.location.href = "./home";
+                    }
                 }
                 else if(data.success === false){
                     document.getElementById('errTxt').innerHTML = data.message;

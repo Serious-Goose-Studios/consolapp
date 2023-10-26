@@ -1,19 +1,18 @@
 import React from 'react';
 import TigerLogo from '../components/TigerLogo.png';
-import home from '../components/home.jfif';
+import home from '../components/home.png';
 import { homeButton } from './home.js';
-import { Typography } from '@mui/material';
 
 function ClubListing({ ctitle, sponsor, descript, clogo, nextmeet, roomnum }){
     return (
-        <span id="clist">
+        <div id="clist">
             <p id="cname">{ctitle}</p>
             <p id="chost">Club Sponsor(s): {sponsor}</p>
             <p id="cdesc">{descript}</p>
             <img id="cimg" alt="" src={clogo} />
             <p id="cmeet">Next Meeting: {nextmeet}</p>
             <p id="croom">Meeting in Room: {roomnum}</p>
-        </span>
+        </div>
     );
 }
 
@@ -25,11 +24,11 @@ function addClub(){
 export default function ClubsPage(){
     return(
         <div id="ClubsPage">
-            <Typography component={'p'} id="NavBar">
+            <div id="NavBar">
                 <button className="cornerButton" onClick={homeButton}><img id="cornerImg" alt="cornerHome" src={home} /></button>
                 <p id="NavTitle">Clubs</p>
                 <button className="navButton" id="ccreate" onClick={addClub}>Add Club</button>
-            </Typography>
+            </div>
             <ClubListing ctitle="Newspaper Club" descript="The Roar is our schools newspaper that shines light on student researched and written topics." clogo={TigerLogo} sponsor="Mr. Williams" nextmeet="Tommorrow" roomnum="2303"/>
         </div>
     )

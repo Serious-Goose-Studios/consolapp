@@ -120,6 +120,8 @@ body {
 }
 
 #loginButton{
+  background: #3e5a93;
+  border-radius: 15px;
   position: absolute;
   top: 5%;
   left: 5%;

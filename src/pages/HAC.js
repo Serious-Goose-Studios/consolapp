@@ -1,8 +1,7 @@
 import React from 'react';
 import { useState, useRef, useEffect } from 'react';
 import { homeButton } from './home.js';
-import home from '../components/home.jfif';
-import { Typography } from '@mui/material';
+import home from '../components/home.png';
 
 
 export default function HAC(){
@@ -90,11 +89,11 @@ export default function HAC(){
                     );
                 });
                 return (
-                    <p id="classAverage" key={index}>
+                    <div id="classAverage" key={index}>
                         {classString}
                         {classAssignments}
                         <br />
-                    </p>
+                    </div>
                 );
             });
             setClassArray(updatedArray);
@@ -117,12 +116,12 @@ export default function HAC(){
     }
     return(
         <div id="HACPage">
-            <p id="NavBar">
+            <div id="NavBar">
                 <button className="cornerButton" onClick={homeButton}><img id="cornerImg" alt="cornerHome" src={home} /></button>
                 <p id="NavTitle">HAC</p>
                 <RankDisplay />
                 <GPADisplay />
-            </p>
+            </div>
             <ClassesDisplay />
         </div>
     );
