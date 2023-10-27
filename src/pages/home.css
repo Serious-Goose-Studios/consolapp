@@ -56,6 +56,9 @@ body {
 }
 
 #el3{
+  width: 50vh;
+  height: 50vh;
+  transform: rotate(180deg);
   position: absolute;
   right: 0%;
 }
@@ -71,7 +74,7 @@ body {
   text-align: left;
 }
 
-#settings{
+.DropDown{
   display: none;
   z-index: 100;
   background: #601c2e;
@@ -198,13 +201,38 @@ body {
   width: 5vh;
   position: absolute;
   top: 0%;
-  left: 0%;
+  left: .1vw;
+}
+
+#settingsImg{
+  height: 9vh;
+  width: 9.5vh;
+  position: absolute;
+  top: 3.5vh;
+  left: 7.5vw;
+}
+
+#profileImg{
+  height: 10vh;
+  width: 11.5vh;
+  position: relative;
+  top: -1.4vh;
+  left: -2.5vh;
+}
+
+#profile{
+  background: #ffffff;
+  height: 7vh;
+  width: 7vh;
+  position: absolute;
+  top: 4vh;
+  left: 2.5vw;
 }
 
 #logo{
   position: absolute;
   top: 25%;
-  right: 10%;
+  right: 1vw;
   height: 500px;
   width: 500px;
   visibility: visible;
@@ -446,9 +474,10 @@ h1{
   2px 2px #000, -2px -2px #000, 2px -2px #000, -2px 2px #000;
   position: absolute;
   top: -50px;
-  left: 5%;
+  left: 10vw;
   color: #ffffff;
-  font-size: 300px;
+  font-size: 250px;
+  letter-spacing: 1vw;
 }
 
 h2{
@@ -458,9 +487,10 @@ h2{
   2px 2px #000, -2px -2px #000, 2px -2px #000, -2px 2px #000;
   position: absolute;
   top: 200px;
-  left: 35%;
+  left: 35vw;
   color: #ffffff;
-  font-size: 300px;
+  font-size: 250px;
+  letter-spacing: 1vw;
   z-index: 1;
 }
 
