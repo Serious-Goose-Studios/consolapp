@@ -121,11 +121,14 @@ function CloseAccountButton() {
 }
 
 function Account(){
+    function CalenderPage(){
+      window.location.href = "./calender";
+    }
     return(
         <div className="DropDown" id="account">
             <CloseAccountButton /> 
             <h6>Account</h6>
-            <button>Calender</button>
+            <button className="pageButton" id="CalenderButton" onClick={CalenderPage}>Calender</button>
         </div>
     )
 };
