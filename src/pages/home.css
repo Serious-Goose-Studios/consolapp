@@ -17,6 +17,7 @@ body {
   );
   margin: auto;
   padding: 0;
+  overflow: hidden;
 }
 
 #NavBar{
@@ -41,6 +42,7 @@ body {
 
 #el1{
   height: 350px;
+  transform: rotate(345deg);
   position: absolute;
   top: 40%;
   left: 10%;
@@ -48,10 +50,20 @@ body {
 }
 
 #el2{
-  height: 300px;
+  height: 10vw;
+  transform: rotate(325deg);
   position: absolute;
-  left: 30%;
-  bottom: 0%;
+  left: 35vw;
+  bottom: 8.5vh;
+  z-index: 0;
+}
+
+#el2_1{
+  height: 10vw;
+  transform: rotate(145deg);
+  position: absolute;
+  left: 30vw;
+  bottom: 0vh;
   z-index: 0;
 }
 
@@ -61,6 +73,31 @@ body {
   transform: rotate(180deg);
   position: absolute;
   right: 0%;
+}
+
+#el3_1{
+  height: 60vh;
+  transform: rotate(135deg);
+  position: absolute;
+  right: -25vw;
+  top: -35vh;
+}
+
+#el5{
+  height: 10vw;
+  transform: rotate(145deg);
+  position: absolute;
+  left: 35vw;
+  bottom: 9vh;
+  z-index: 0;
+}
+
+#el6{
+  width: 62.75vh;
+  height: 65vh;
+  position: absolute;
+  right: -3.75vw;
+  top: -6.15vh;
 }
 
 #rank{
@@ -128,6 +165,10 @@ body {
   position: absolute;
   top: 5%;
   left: 5%;
+}
+
+#styleUpdate{
+  display: none;
 }
 
 #classUpdate{
@@ -605,8 +646,7 @@ body {
 .cornerButton{
   background-color: transparent;
   border: none;
-  height: 40px;
-  width: 40px;
+
   position: absolute;
   top: -2px;
   left: -2px;

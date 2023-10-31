@@ -1,13 +1,19 @@
 import React  from 'react';
+import { useRef, useEffect } from 'react';
 import TigerLogo from '../components/TigerLogo.png';
-import element1 from '../components/element1.png'
-import element2 from '../components/element2.png'
-import element3 from '../components/element3.png'
+import element1 from '../components/element1.png';
+import element2 from '../components/element2.png';
+import element2_1 from '../components/element2.5.png';
+import element3 from '../components/element3.png';
+import element3_1 from '../components/element3.5.png';
+import element4 from '../components/element4.png';
+import element5 from '../components/element5.png';
+import element6 from '../components/element6.png';
+import element6_1 from '../components/element6.5.png';
 import settingsicon from '../components/settings.png';
 import accounticon from '../components/account.png'
 import './home.css';
 
-localStorage.setItem("lightMode", false);
 var light = localStorage.getItem("lightMode");
 var isLogged = localStorage.getItem("loggedIn");
 export function homeButton(){
@@ -15,16 +21,16 @@ export function homeButton(){
 }
 function LightModeSwitch(){
   function switchClick(){
-    if(document.getElementById("lightmode").checked){
-      localStorage.setItem("lightMode", true);
+    if(light){
+      localStorage.removeItem("lightMode");
     }
     else{
-      localStorage.setItem("lightMode", false);
+      localStorage.setItem("lightMode", true);
     }
     window.location.reload();
   }
   return(
-    <input type="checkbox" id="lightmode" className="switch" onClick={switchClick}></input>
+    <button id="lightmode" className="switch" onClick={switchClick}>{light ? <p>on</p> : <p>off</p>}</button>
   )
 }
 function logoClick(){
@@ -124,22 +130,45 @@ function Account(){
     )
 };
 
-if(light){
-    document.getElementById("main").style.background = "linear-gradient(to right,  #ffffff 0%, #ffffff 65%, #601c2e 99%,#601c2e 100%)";
-    
-}
 export default function Home(){
+  function updateStyle(){
+    if(light){
+        document.getElementById("main").style.background = "linear-gradient(to right,  #ffffff 0%, #ffffff 65%, #601c2e 99%,#601c2e 100%)";
+        document.getElementById("HACButton").style.color = "#000000";
+        document.getElementById("Clubs").style.color = "#000000";
+        document.getElementById("profile").style.background = "#601c2e";
+        document.querySelector("h1").style.color = "#000000";
+        document.querySelector("h2").style.color = "#000000";
+        document.querySelector("h1").style.textShadow = "none";
+        document.querySelector("h2").style.textShadow = "none";
+    }
+    else{
+      document.getElementById("main").style.background = "linear-gradient(to right,  #601c2e 0%,#601c2e 5%,#520000 45%,#520000 65%,#2e0010 95%,#2e0010 100%)";
+      document.getElementById("HACButton").style.color = "#ffffff";
+      document.getElementById("Clubs").style.color = "#ffffff";
+      document.querySelector("h1").style.color = "#ffffff";
+      document.querySelector("h2").style.color = "#ffffff";
+      document.querySelector("h1").style.textShadow = "4px 0 #000, -4px 0 #000, 0 4px #000, 0 -4px #000,2px 2px #000, -2px -2px #000, 2px -2px #000, -2px 2px #000";
+      document.querySelector("h2").style.textShadow = "4px 0 #000, -4px 0 #000, 0 4px #000, 0 -4px #000,2px 2px #000, -2px -2px #000, 2px -2px #000, -2px 2px #000";
+    }
+  }
+  const buttonRef = useRef(null);
+  useEffect(() => {
+      buttonRef.current.addEventListener('click', updateStyle);
+      buttonRef.current.click();
+  }, []);
   return (
     <div>
       <h1>Consol</h1>
       <h2>App</h2>
-      { light ? <><img id="el1" alt="" src={element1}/><img id="el2" alt="" src={element2}/><img id="el3" alt="" src={element3}/></> : <><img id="el1" alt="" src={element4}/><img id="el2" alt="" src={element5}/><img id="el3" alt="" src={element6}/></>}
+      { light ? <><img id="el1" alt="" src={element4}/><img id="el5" alt="" src={element5}/><img id="el2_1" alt="" src={element2_1}/><img id="el6" alt="" src={element6}/><img id="el3_1" alt="" src={element6_1}/></> : <><img id="el1" alt="" src={element1}/><img id="el2" alt="" src={element2}/><img id="el2_1" alt="" src={element2_1}/><img id="el3" alt="" src={element3}/><img id="el3_1" alt="" src={element3_1}/></>}
       <Settings />
       <Account />
       <ClubsButton />
       <HACButton />
       {isLogged ? <><AccountButton /><SettingsButton /></> : <LoginButton />}
       <button className="consoLogo"><img src ={TigerLogo} alt="Consol Tiger" id="logo" onClick={logoClick}></img></button>
+      <button ref={buttonRef} id="styleUpdate" onClick={updateStyle}>Update Style</button>
     </div>
       
   );
