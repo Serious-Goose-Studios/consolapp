@@ -159,7 +159,7 @@ body {
   left: 65%;
 }
 
-#CalenderButton{
+#CalendarButton{
   position: absolute;
   left: 1.5vw;
   top: 4vh;
@@ -652,17 +652,28 @@ body {
 .cornerButton{
   background-color: transparent;
   border: none;
-
   position: absolute;
   top: -2px;
   left: -2px;
   color: #555555;
 }
 
+#CalendarPage{
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.cal-page-top{
+  display: flex;
+  flex: 1;
+}
+
 .calendar-container {
+  flex: 1;
   background: #fff;
-  width: 450px;
-  border-radius: 10px;
+  width: 80vw;
+  border-bottom-left-radius: 10px;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
 }
 
@@ -685,7 +696,7 @@ header .calendar-navigation span {
   text-align: center;
   line-height: 38px;
   border-radius: 50%;
-  /* user-select: none; */
+  user-select: none;
   color: #aeabab;
   font-size: 1.9rem;
 }
@@ -757,9 +768,36 @@ header .calendar-current-date {
 }
 
 .calendar-dates li.active::before {
-  background: #6332c5;
+  background: #3e5a93;
 }
 
 .calendar-dates li:not(.active):hover::before {
   background: #e4e1e1;
+}
+
+.eventCol{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#upcomingEvents{
+  flex: 1;
+  overflow-y: auto;
+  position: absolute;
+  top: 5vh;
+  right: 0vw;
+  background: #fff;
+  width: 20vw;
+  border-bottom-right-radius: 10px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+#eventsHeader{
+  text-align: left;
+  font-size: larger;
+}
+
+#dayEvents{
+
 }

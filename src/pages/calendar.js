@@ -1,9 +1,45 @@
 import React from 'react';
-import { useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { homeButton } from './home.js';
 import home from '../components/home.png';
 
-export default function Calender(){
+const Events = {"December 14th":"Holiday","December 15th":"Holiday","December 16th":"Holiday","December 17th":"Holiday","December 18th":"Holiday","December 19th":"Holiday","December 20th":"Holiday","December 21st":"Holiday","December 22nd":"Holiday","December 23rd":"Holiday","December 24th":"Holiday","December 25th":"Holiday"};
+const eventList = Object.keys(Events);
+function EventsDisplay() {
+    // State variable to hold the string
+    const [eventsArray, setEventsArray] = useState([""]);
+  
+    // Function to update the string
+    const updateArray = () => {
+        const updatedArray = eventList.map((eventDate, index) => {
+            const eventInfo = Events[eventDate];
+            var eventString = `${eventDate}: ${eventInfo}`;
+            return (
+                <div id="dayEvents" key={index}>
+                    {eventString}
+                </div>
+            );
+        });
+        setEventsArray(updatedArray);
+    };
+    const buttonRef = useRef(null);
+    useEffect(() => {
+        buttonRef.current.addEventListener('click', updateArray);
+        buttonRef.current.click();
+    }, []);
+    
+    return (
+      <div>
+        {/* Display the string */}
+        <div>{eventsArray}</div>
+  
+        {/* Button to update the string */}
+        <button ref={buttonRef} id="classUpdate" onClick={updateArray}>Update String</button>
+      </div>
+    );
+}
+
+export default function Calendar(){
     let date = new Date();
     let year = date.getFullYear();
     let month = date.getMonth();
@@ -79,7 +115,7 @@ export default function Calender(){
     }
     useEffect(() => {
         manipulate();
-      }, []);
+    }, []);
     // Attach a click event listener to each icon
     const handleIconClick = (iconId) => {
     
@@ -108,42 +144,49 @@ export default function Calender(){
             }
             manipulate();
     } 
+
     return(
-        <div id="CalenderPage">
+        <div id="CalendarPage">
             <div id="NavBar">
                 <button className="cornerButton" onClick={homeButton}><img id="cornerImg" alt="cornerHome" src={home} /></button>
-                <p id="NavTitle">Calender</p>
+                <p id="NavTitle">Calendar</p>
             </div>
-            <div class="calendar-container">
-        <header class="calendar-header">
-            <p class="calendar-current-date"></p>
-            <div class="calendar-navigation">
-                <span id="calendar-prev"
-                      class="material-symbols-rounded"
-                      onClick={() => handleIconClick("calendar-prev")}>
-                    &lt;
-                </span>
-                <span id="calendar-next"
-                      class="material-symbols-rounded"
-                      onClick={() => handleIconClick("calendar-next")}>
-                    &gt;
-                </span>
+            <div class="cal-page-top">
+                <div class="calendar-container">
+                    <header class="calendar-header">
+                        <p class="calendar-current-date"></p>
+                        <div class="calendar-navigation">
+                            <span id="calendar-prev"
+                                class="material-symbols-rounded"
+                                onClick={() => handleIconClick("calendar-prev")}>
+                                &lt;
+                            </span>
+                            <span id="calendar-next"
+                                class="material-symbols-rounded"
+                                onClick={() => handleIconClick("calendar-next")}>
+                                &gt;
+                            </span>
+                        </div>
+                    </header>
+            
+                    <div class="calendar-body">
+                        <ul class="calendar-weekdays">
+                            <li>Sun</li>
+                            <li>Mon</li>
+                            <li>Tue</li>
+                            <li>Wed</li>
+                            <li>Thu</li>
+                            <li>Fri</li>
+                            <li>Sat</li>
+                        </ul>
+                        <ul class="calendar-dates"></ul>
+                    </div>
+                </div>
+                <div class="eventCol" id="upcomingEvents">
+                    <header id="eventsHeader">Upcoming Events:</header>
+                    <EventsDisplay/>
+                </div>
             </div>
-        </header>
- 
-        <div class="calendar-body">
-            <ul class="calendar-weekdays">
-                <li>Sun</li>
-                <li>Mon</li>
-                <li>Tue</li>
-                <li>Wed</li>
-                <li>Thu</li>
-                <li>Fri</li>
-                <li>Sat</li>
-            </ul>
-            <ul class="calendar-dates"></ul>
-        </div>
-    </div>
         </div>
     );
 }

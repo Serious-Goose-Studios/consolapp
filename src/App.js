@@ -5,7 +5,7 @@ import Login from './pages/login.js';
 import Home from './pages/home.js';
 import ClubsPage from './pages/clubs.js';
 import HAC from './pages/HAC.js';
-import Calender from './pages/calender.js';
+import Calendar from './pages/calendar.js';
 
 let App = function MyApp() {
   return (
@@ -17,7 +17,7 @@ let App = function MyApp() {
             <Route path='/home' element={<Home />} />
             <Route path='/clubs' element={<ClubsPage />} />
             <Route path='/hac' element={<HAC />} />
-            <Route path='/calender' element={<Calender />} />
+            <Route path='/calendar' element={<Calendar />} />
           </Routes>
       </Router>
     </div>
