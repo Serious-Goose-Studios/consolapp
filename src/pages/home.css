@@ -658,21 +658,27 @@ body {
   color: #555555;
 }
 
-#CalendarPage{
-  display: flex;
-  flex-direction: column;
+#CalendarPage {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
   height: 100vh;
 }
 
-.cal-page-top{
-  display: flex;
-  flex: 1;
+.cal-page-top {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-gap: 16px; /* Adjust the gap as needed */
 }
 
 .calendar-container {
-  flex: 1;
+  grid-column: 1;
+  grid-row: 1;
   background: #fff;
+  position: absolute;
+  top: 5vh;
   width: 80vw;
+  height: 52.5vh;
   border-bottom-left-radius: 10px;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
 }
@@ -775,14 +781,15 @@ header .calendar-current-date {
   background: #e4e1e1;
 }
 
-.eventCol{
-  flex: 1;
+.eventCol {
+  grid-column: 2;
+  grid-row: 1 / span 2;
   display: flex;
   flex-direction: column;
+  height: 52.5vh; /* Ensure the column takes the full height */
 }
 
-#upcomingEvents{
-  flex: 1;
+#upcomingEvents {
   overflow-y: auto;
   position: absolute;
   top: 5vh;
@@ -790,14 +797,16 @@ header .calendar-current-date {
   background: #fff;
   width: 20vw;
   border-bottom-right-radius: 10px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+  border-left: double 5px #000;
 }
 
-#eventsHeader{
+#eventsHeader {
+  padding: 25px 30px 10px;
   text-align: left;
   font-size: larger;
 }
 
 #dayEvents{
-
-}
+  font-size: large;
+  line-height: 5vh;
+} 

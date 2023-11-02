@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 import { homeButton } from './home.js';
 import home from '../components/home.png';
 
-const Events = {"December 14th":"Holiday","December 15th":"Holiday","December 16th":"Holiday","December 17th":"Holiday","December 18th":"Holiday","December 19th":"Holiday","December 20th":"Holiday","December 21st":"Holiday","December 22nd":"Holiday","December 23rd":"Holiday","December 24th":"Holiday","December 25th":"Holiday"};
+const Events = {"Finally A Break":{"start":{"day":"20th","month":"November","year":"2023"},"end":{"day":"24th","month":"November","year":"2023"}},"FREEDOM":{"start":{"day":"15th","month":"December","year":"2023"}},"Made Up Holiday":{"start":{"day":"18th","month":"December","year":"2023"},"end":{"day":"1st","month":"January","year":"2024"}}};
 const eventList = Object.keys(Events);
 function EventsDisplay() {
     // State variable to hold the string
@@ -11,9 +11,14 @@ function EventsDisplay() {
   
     // Function to update the string
     const updateArray = () => {
-        const updatedArray = eventList.map((eventDate, index) => {
-            const eventInfo = Events[eventDate];
-            var eventString = `${eventDate}: ${eventInfo}`;
+        const updatedArray = eventList.map((eventName, index) => {
+            const eventInfo = Events[eventName];
+            if('end' in eventInfo){
+                var eventString = `${eventInfo.start.month} ${eventInfo.start.day} - ${eventInfo.end.month} ${eventInfo.end.day}: ${eventName}`;
+            }
+            else{
+                var eventString = `${eventInfo.start.month} ${eventInfo.start.day}: ${eventName}`;
+            }
             return (
                 <div id="dayEvents" key={index}>
                     {eventString}
