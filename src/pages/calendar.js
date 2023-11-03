@@ -44,6 +44,46 @@ function EventsDisplay() {
     );
 }
 
+function DayDisplay() {
+    // State variable to hold the string
+    const [DayArray, setDayArray] = useState([""]);
+  
+    // Function to update the string
+    const updateArray = () => {
+        const updatedArray = eventList.map((eventName, index) => {
+            const eventInfo = Events[eventName];
+            if('end' in eventInfo){
+                var eventString = `${eventInfo.start.month} ${eventInfo.start.day} - ${eventInfo.end.month} ${eventInfo.end.day}: ${eventName}`;
+            }
+            else{
+                var eventString = `${eventInfo.start.month} ${eventInfo.start.day}: ${eventName}`;
+            }
+            return (
+                <div id="dayEvents" key={index}>
+                    {eventString}
+                </div>
+            );
+        });
+        setEventsArray(updatedArray);
+    };
+    const buttonRef = useRef(null);
+    useEffect(() => {
+        buttonRef.current.addEventListener('click', updateArray);
+        buttonRef.current.click();
+    }, []);
+    
+    return (
+      <div>
+        {/* Display the string */}
+        <div>{eventsArray}</div>
+  
+        {/* Button to update the string */}
+        <button ref={buttonRef} id="classUpdate" onClick={updateArray}>Update String</button>
+      </div>
+    );
+}
+
+var eventsByDay = {}
 export default function Calendar(){
     let date = new Date();
     let year = date.getFullYear();
@@ -66,7 +106,8 @@ export default function Calendar(){
         "November",
         "December"
     ];
-   
+
+    
     const manipulate = () => {
         const day = document.querySelector(".calendar-dates");
         const currdate = document.querySelector(".calendar-current-date");
@@ -89,8 +130,17 @@ export default function Calendar(){
     
         // Loop to add the last dates of the previous month
         for (let i = dayone; i > 0; i--) {
-            lit +=
-                `<li class="inactive">${monthlastdate - i + 1}</li>`;
+            lit += `<li class="inactive">${monthlastdate - i + 1}</li>`;
+            if(month === 0){
+                var tempyear = year - 1;
+                var tempmonth = 12;
+            }
+            else{
+                var tempyear= year;
+                var tempmonth = month;
+            }
+            var monthDay = `${tempyear}:${tempmonth}:${monthlastdate - i + 1}`;
+            eventsByDay[monthDay] = {};
         }
     
         // Loop to add the dates of the current month
@@ -103,11 +153,23 @@ export default function Calendar(){
                 ? "active"
                 : "";
             lit += `<li class="${isToday}">${i}</li>`;
+            var monthDay = `${year}:${month + 1}:${i}`;
+            eventsByDay[monthDay] = {};
         }
     
         // Loop to add the first dates of the next month
         for (let i = dayend; i < 6; i++) {
             lit += `<li class="inactive">${i - dayend + 1}</li>`
+            if(month + 2 === 13){
+                var tempyear = year + 1;
+                var tempmonth = 1;
+            }
+            else{
+                var tempyear= year;
+                var tempmonth = month + 2;
+            }
+            var yearMonthDay = `${tempyear}:${tempmonth}:${i - dayend + 1}`;
+            eventsByDay[yearMonthDay] = {};
         }
     
         // Update the text of the current date element 
@@ -117,13 +179,38 @@ export default function Calendar(){
         // update the HTML of the dates element 
         // with the generated calendar
         day.innerHTML = lit;
+
+        
+        const dayList = Object.keys(eventsByDay);
+        dayList.forEach(splitEvents);
+
+        function splitEvents(item){
+            var dateArray = item.split(':').map(function(num) {
+                return parseInt(num, 10);
+            });
+            console.log(dateArray);
+            var splitYear = dateArray[0];
+            var splitMonth = dateArray[1];
+            var splitDay = dateArray[2];
+            eventList.forEach(checkDates);
+
+            function checkDates(item){
+                var strStartDay = Events[item].start.day;
+                var testStartDay = strStartDay.substring(0, strStartDay.length - 3);
+                console.log(testStartDay);
+                if(splitYear >= Events[item].start.year && splitYear <= Events[item].end.year){
+                }
+            }
+        }
+        console.log(lit)
+        console.log(eventsByDay)
     }
     useEffect(() => {
         manipulate();
     }, []);
     // Attach a click event listener to each icon
     const handleIconClick = (iconId) => {
-    
+            eventsByDay = {}
             // Check if the icon is "calendar-prev"
             // or "calendar-next"
             month = iconId === "calendar-prev" ? month - 1 : month + 1;
