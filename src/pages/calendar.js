@@ -89,8 +89,6 @@ export default function Calendar(){
     let year = date.getFullYear();
     let month = date.getMonth();
 
-    const prenexIcons = document.querySelectorAll(".calendar-navigation span");
-
     // Array of month names
     const months = [
         "January",
@@ -184,11 +182,11 @@ export default function Calendar(){
         const dayList = Object.keys(eventsByDay);
         dayList.forEach(splitEvents);
 
-        function splitEvents(item){
-            var dateArray = item.split(':').map(function(num) {
+        function splitEvents(key){
+            eventsByDay[key].events = {};
+            var dateArray = key.split(':').map(function(num) {
                 return parseInt(num, 10);
             });
-            console.log(dateArray);
             var splitYear = dateArray[0];
             var splitMonth = dateArray[1];
             var splitDay = dateArray[2];
@@ -196,14 +194,54 @@ export default function Calendar(){
 
             function checkDates(item){
                 var strStartDay = Events[item].start.day;
-                var testStartDay = strStartDay.substring(0, strStartDay.length - 3);
-                console.log(testStartDay);
-                if(splitYear >= Events[item].start.year && splitYear <= Events[item].end.year){
+                var str2StartDay = strStartDay.substring(0, strStartDay.length - 2);
+                var numStartDay = parseInt(str2StartDay, 10);
+
+                var strStartMonth = Events[item].start.month;
+                var numStartMonth = months.indexOf(strStartMonth) + 1;
+
+                var strStartYear = Events[item].start.year;
+                var numStartYear = parseInt(strStartYear, 10);
+                if('end' in Events[item]){
+                    var strEndDay = Events[item].end.day;
+                    var str2EndDay = strEndDay.substring(0, strEndDay.length - 2);
+                    var numEndDay = parseInt(str2EndDay, 10);
+
+                    var strEndMonth = Events[item].end.month;
+                    var numEndMonth = months.indexOf(strEndMonth) + 1;
+
+                    var strEndYear = Events[item].end.year;
+                    var numEndYear = parseInt(strEndYear, 10);
+                    if(splitYear >= numStartYear && splitYear <= numEndYear){
+                        if(numStartYear !== numEndYear){
+                            numEndMonth += 12;
+                        }
+                        if(splitMonth >= numStartMonth && splitMonth <= numEndMonth){
+                            if(splitDay >= numStartDay && splitDay <= numEndDay){
+                                eventsByDay[key].events += item;
+                            }
+                            if(numStartMonth !== numEndMonth){
+                                if(splitDay >= numStartDay && splitMonth === numStartMonth){
+                                    eventsByDay[key].events += item;
+                                }
+                                if(splitDay <= numEndDay && (splitMonth === numEndMonth || splitMonth + 12 === numEndMonth)){
+                                    eventsByDay[key].events += item;
+                                }
+                            }
+                        }
+                    }
+                }
+                else{
+                    if(splitYear === numStartYear){
+                        if(splitMonth === numStartMonth){
+                            if(splitDay === numStartDay){
+                                eventsByDay[key].events += item;
+                            }
+                        }
+                    }
                 }
             }
         }
-        console.log(lit)
-        console.log(eventsByDay)
     }
     useEffect(() => {
         manipulate();
@@ -243,26 +281,26 @@ export default function Calendar(){
                 <button className="cornerButton" onClick={homeButton}><img id="cornerImg" alt="cornerHome" src={home} /></button>
                 <p id="NavTitle">Calendar</p>
             </div>
-            <div class="cal-page-top">
-                <div class="calendar-container">
-                    <header class="calendar-header">
-                        <p class="calendar-current-date"></p>
-                        <div class="calendar-navigation">
+            <div className="cal-page-top">
+                <div className="calendar-container">
+                    <header className="calendar-header">
+                        <p className="calendar-current-date"></p>
+                        <div className="calendar-navigation">
                             <span id="calendar-prev"
-                                class="material-symbols-rounded"
+                                className="material-symbols-rounded"
                                 onClick={() => handleIconClick("calendar-prev")}>
                                 &lt;
                             </span>
                             <span id="calendar-next"
-                                class="material-symbols-rounded"
+                                className="material-symbols-rounded"
                                 onClick={() => handleIconClick("calendar-next")}>
                                 &gt;
                             </span>
                         </div>
                     </header>
             
-                    <div class="calendar-body">
-                        <ul class="calendar-weekdays">
+                    <div className="calendar-body">
+                        <ul className="calendar-weekdays">
                             <li>Sun</li>
                             <li>Mon</li>
                             <li>Tue</li>
@@ -271,10 +309,10 @@ export default function Calendar(){
                             <li>Fri</li>
                             <li>Sat</li>
                         </ul>
-                        <ul class="calendar-dates"></ul>
+                        <ul className="calendar-dates"></ul>
                     </div>
                 </div>
-                <div class="eventCol" id="upcomingEvents">
+                <div className="eventCol" id="upcomingEvents">
                     <header id="eventsHeader">Upcoming Events:</header>
                     <EventsDisplay/>
                 </div>
