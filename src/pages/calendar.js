@@ -44,45 +44,6 @@ function EventsDisplay() {
     );
 }
 
-function DayDisplay() {
-    // State variable to hold the string
-    const [DayArray, setDayArray] = useState([""]);
-  
-    // Function to update the string
-    const updateArray = () => {
-        const updatedArray = eventList.map((eventName, index) => {
-            const eventInfo = Events[eventName];
-            if('end' in eventInfo){
-                var eventString = `${eventInfo.start.month} ${eventInfo.start.day} - ${eventInfo.end.month} ${eventInfo.end.day}: ${eventName}`;
-            }
-            else{
-                var eventString = `${eventInfo.start.month} ${eventInfo.start.day}: ${eventName}`;
-            }
-            return (
-                <div id="dayEvents" key={index}>
-                    {eventString}
-                </div>
-            );
-        });
-        setEventsArray(updatedArray);
-    };
-    const buttonRef = useRef(null);
-    useEffect(() => {
-        buttonRef.current.addEventListener('click', updateArray);
-        buttonRef.current.click();
-    }, []);
-    
-    return (
-      <div>
-        {/* Display the string */}
-        <div>{eventsArray}</div>
-  
-        {/* Button to update the string */}
-        <button ref={buttonRef} id="classUpdate" onClick={updateArray}>Update String</button>
-      </div>
-    );
-}
-
 var eventsByDay = {}
 export default function Calendar(){
     let date = new Date();
@@ -128,7 +89,6 @@ export default function Calendar(){
     
         // Loop to add the last dates of the previous month
         for (let i = dayone; i > 0; i--) {
-            lit += `<li class="inactive">${monthlastdate - i + 1}</li>`;
             if(month === 0){
                 var tempyear = year - 1;
                 var tempmonth = 12;
@@ -137,6 +97,7 @@ export default function Calendar(){
                 var tempyear= year;
                 var tempmonth = month;
             }
+            lit += `<li class="inactive">${monthlastdate - i + 1}</li>`;
             var monthDay = `${tempyear}:${tempmonth}:${monthlastdate - i + 1}`;
             eventsByDay[monthDay] = {};
         }
@@ -149,15 +110,14 @@ export default function Calendar(){
                 && month === new Date().getMonth()
                 && year === new Date().getFullYear()
                 ? "active"
-                : "";
-            lit += `<li class="${isToday}">${i}</li>`;
+                : "inMonth";
+            lit += `<li class="${isToday}" data-month="${month + 1}">${i}</li>`;
             var monthDay = `${year}:${month + 1}:${i}`;
             eventsByDay[monthDay] = {};
         }
     
         // Loop to add the first dates of the next month
         for (let i = dayend; i < 6; i++) {
-            lit += `<li class="inactive">${i - dayend + 1}</li>`
             if(month + 2 === 13){
                 var tempyear = year + 1;
                 var tempmonth = 1;
@@ -166,6 +126,7 @@ export default function Calendar(){
                 var tempyear= year;
                 var tempmonth = month + 2;
             }
+            lit += `<li class="inactive" data-month="${tempmonth}">${i - dayend + 1}</li>`
             var yearMonthDay = `${tempyear}:${tempmonth}:${i - dayend + 1}`;
             eventsByDay[yearMonthDay] = {};
         }
@@ -242,6 +203,18 @@ export default function Calendar(){
                 }
             }
         }
+        console.log(eventsByDay);
+
+        var calDates = document.querySelector(".calendar-dates");
+        var days = calDates.getElementsByTagName("li");
+        dayList.forEach((key, index) => {
+            var dayEvents = eventsByDay[key].events;
+            if(dayEvents.length > 0){
+                days[index].innerHTML += `<div class="dot" />`
+            }
+        });
+
+        console.log(calDates);
     }
     useEffect(() => {
         manipulate();
@@ -274,6 +247,30 @@ export default function Calendar(){
             }
             manipulate();
     } 
+
+    function DayDisplay() {
+        const [dayArray, setDayArray] = useState([""]);
+        const [dayDate, setDayDate] = useState("");
+
+        const updateArray = () => {
+            setDayDate(new Date().getDate())
+        };
+        const buttonRef = useRef(null);
+        useEffect(() => {
+            buttonRef.current.addEventListener('click', updateArray);
+            buttonRef.current.click();
+        }, []);
+        
+        return (
+          <div>
+            {/* Display the string */}
+            <div id="currDayInfo"><header id="dayInfoHeader">{dayDate} Events</header>{dayArray}</div>
+      
+            {/* Button to update the string */}
+            <button ref={buttonRef} id="classUpdate" onClick={updateArray}>Update String</button>
+          </div>
+        );
+    }
 
     return(
         <div id="CalendarPage">
@@ -316,6 +313,7 @@ export default function Calendar(){
                     <header id="eventsHeader">Upcoming Events:</header>
                     <EventsDisplay/>
                 </div>
+                <DayDisplay/>
             </div>
         </div>
     );
