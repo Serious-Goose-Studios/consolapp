@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 import { homeButton } from './home.js';
 import home from '../components/home.png';
 
+
 const Events = {"Finally A Break":{"start":{"day":"20th","month":"November","year":"2023"},"end":{"day":"24th","month":"November","year":"2023"}},"FREEDOM":{"start":{"day":"15th","month":"December","year":"2023"}},"Made Up Holiday":{"start":{"day":"18th","month":"December","year":"2023"},"end":{"day":"1st","month":"January","year":"2024"}}};
 const eventList = Object.keys(Events);
 function EventsDisplay() {
@@ -66,11 +67,11 @@ export default function Calendar(){
         "December"
     ];
 
-    
+
+
     const manipulate = () => {
         const day = document.querySelector(".calendar-dates");
         const currdate = document.querySelector(".calendar-current-date");
-        
 
         // Get the first day of the month
         let dayone = new Date(year, month, 1).getDay();
@@ -97,7 +98,7 @@ export default function Calendar(){
                 var tempyear= year;
                 var tempmonth = month;
             }
-            lit += `<li class="inactive" data-month="${tempmonth}" onClick={() => handleButtonClick(updateArray, "${monthlastdate - i + 1}", "${tempmonth}", "${tempyear}")}>${monthlastdate - i + 1}</li>`;
+            lit += `<li class="inactive" data-month="${tempmonth}" onClick="handleButtonClick(updateArray, '${i}', '${month + 1}', '${year}')">${monthlastdate - i + 1}</li>`;
             var monthDay = `${tempyear}/${tempmonth}/${monthlastdate - i + 1}`;
             eventsByDay[monthDay] = {};
         }
@@ -111,7 +112,7 @@ export default function Calendar(){
                 && year === new Date().getFullYear()
                 ? "active"
                 : "inMonth";
-            lit += `<li class="${isToday}" data-month="${month + 1}" onClick={() => handleButtonClick(updateArray, "${i}", "${month + 1}", "${year}")}>${i}</li>`;
+            lit += `<li class="${isToday}" data-month="${month + 1}" onClick="handleButtonClick(updateArray, '${i}', '${month + 1}', '${year}')">${i}</li>`;
             var monthDay = `${year}/${month + 1}/${i}`;
             eventsByDay[monthDay] = {};
         }
@@ -126,7 +127,8 @@ export default function Calendar(){
                 var tempyear= year;
                 var tempmonth = month + 2;
             }
-            lit += `<li class="inactive" data-month="${tempmonth}" onClick={() => handleButtonClick(updateArray, "${i - dayend + 1}", "${tempmonth}", "${tempyear}")}>${i - dayend + 1}</li>`
+            
+            lit += `<li class="inactive" data-month="${tempmonth}" onClick="handleButtonClick(updateArray, '${i}', '${month + 1}', '${year}')">${i - dayend + 1}</li>`
             var yearMonthDay = `${tempyear}/${tempmonth}/${i - dayend + 1}`;
             eventsByDay[yearMonthDay] = {};
         }
