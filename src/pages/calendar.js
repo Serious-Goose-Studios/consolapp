@@ -10,7 +10,7 @@ function EventsDisplay() {
     const [eventsArray, setEventsArray] = useState([""]);
   
     // Function to update the string
-    const updateArray = () => {
+    const updateUpcomingEvents = () => {
         const updatedArray = eventList.map((eventName, index) => {
             const eventInfo = Events[eventName];
             if('end' in eventInfo){
@@ -29,7 +29,7 @@ function EventsDisplay() {
     };
     const buttonRef = useRef(null);
     useEffect(() => {
-        buttonRef.current.addEventListener('click', updateArray);
+        buttonRef.current.addEventListener('click', updateUpcomingEvents);
         buttonRef.current.click();
     }, []);
     
@@ -39,7 +39,7 @@ function EventsDisplay() {
         <div>{eventsArray}</div>
   
         {/* Button to update the string */}
-        <button ref={buttonRef} id="classUpdate" onClick={updateArray}>Update String</button>
+        <button ref={buttonRef} id="classUpdate" onClick={updateUpcomingEvents}>Update String</button>
       </div>
     );
 }
@@ -97,8 +97,8 @@ export default function Calendar(){
                 var tempyear= year;
                 var tempmonth = month;
             }
-            lit += `<li class="inactive">${monthlastdate - i + 1}</li>`;
-            var monthDay = `${tempyear}:${tempmonth}:${monthlastdate - i + 1}`;
+            lit += `<li class="inactive" data-month="${tempmonth}" onClick={() => handleButtonClick(updateArray, "${monthlastdate - i + 1}", "${tempmonth}", "${tempyear}")}>${monthlastdate - i + 1}</li>`;
+            var monthDay = `${tempyear}/${tempmonth}/${monthlastdate - i + 1}`;
             eventsByDay[monthDay] = {};
         }
     
@@ -111,8 +111,8 @@ export default function Calendar(){
                 && year === new Date().getFullYear()
                 ? "active"
                 : "inMonth";
-            lit += `<li class="${isToday}" data-month="${month + 1}">${i}</li>`;
-            var monthDay = `${year}:${month + 1}:${i}`;
+            lit += `<li class="${isToday}" data-month="${month + 1}" onClick={() => handleButtonClick(updateArray, "${i}", "${month + 1}", "${year}")}>${i}</li>`;
+            var monthDay = `${year}/${month + 1}/${i}`;
             eventsByDay[monthDay] = {};
         }
     
@@ -126,8 +126,8 @@ export default function Calendar(){
                 var tempyear= year;
                 var tempmonth = month + 2;
             }
-            lit += `<li class="inactive" data-month="${tempmonth}">${i - dayend + 1}</li>`
-            var yearMonthDay = `${tempyear}:${tempmonth}:${i - dayend + 1}`;
+            lit += `<li class="inactive" data-month="${tempmonth}" onClick={() => handleButtonClick(updateArray, "${i - dayend + 1}", "${tempmonth}", "${tempyear}")}>${i - dayend + 1}</li>`
+            var yearMonthDay = `${tempyear}/${tempmonth}/${i - dayend + 1}`;
             eventsByDay[yearMonthDay] = {};
         }
     
@@ -145,7 +145,7 @@ export default function Calendar(){
 
         function splitEvents(key){
             eventsByDay[key].events = {};
-            var dateArray = key.split(':').map(function(num) {
+            var dateArray = key.split('/').map(function(num) {
                 return parseInt(num, 10);
             });
             var splitYear = dateArray[0];
@@ -213,7 +213,6 @@ export default function Calendar(){
                 days[index].innerHTML += `<div class="dot" />`
             }
         });
-
         console.log(calDates);
     }
     useEffect(() => {
@@ -248,30 +247,49 @@ export default function Calendar(){
             manipulate();
     } 
 
-    function DayDisplay() {
+    function DayDisplay({ onClick }) {
         const [dayArray, setDayArray] = useState([""]);
         const [dayDate, setDayDate] = useState("");
 
-        const updateArray = () => {
-            setDayDate(new Date().getDate())
+        const updateArray = (dayKey, monthKey, yearKey) => {
+            console.log("clicked");
+            var dateDisplay = `${monthKey}/${dayKey}/${yearKey}`
+            setDayDate(dateDisplay)
+
+            var dateKey = `${yearKey}/${monthKey}/${dayKey}`
+            console.log(dateKey);
+            var daysEvents = eventsByDay[dateKey] && eventsByDay[dateKey].events;
+            if(!daysEvents || Object.keys(daysEvents).length === 0){
+                setDayArray(["No Events on this Day"]);
+            }
+            else{
+                setDayArray(Object.keys(daysEvents));  
+            }     
         };
-        const buttonRef = useRef(null);
+
         useEffect(() => {
-            buttonRef.current.addEventListener('click', updateArray);
-            buttonRef.current.click();
-        }, []);
+            // Call the updateArray function when the component mounts
+            updateArray(`${date.getDate()}`, `${month + 1}`, `${year}`);
+          }, []);
+        
+          useEffect(() => {
+            // Call the updateArray function when the pre-existing button is clicked
+            onClick(updateArray);
+          }, [onClick]);
         
         return (
           <div>
             {/* Display the string */}
-            <div id="currDayInfo"><header id="dayInfoHeader">{dayDate} Events</header>{dayArray}</div>
-      
-            {/* Button to update the string */}
-            <button ref={buttonRef} id="classUpdate" onClick={updateArray}>Update String</button>
+            <div id="currDayInfo"><header id="dayInfoHeader">{dayDate} Events</header><br/>{dayArray}</div>
           </div>
         );
     }
 
+    let handleButtonClick = (updateArray, dayKey, monthKey, yearKey) => {
+        // Call the updateArray function when the pre-existing button is clicked
+        updateArray(dayKey, monthKey, yearKey);
+    };
+    
     return(
         <div id="CalendarPage">
             <div id="NavBar">
@@ -313,7 +331,7 @@ export default function Calendar(){
                     <header id="eventsHeader">Upcoming Events:</header>
                     <EventsDisplay/>
                 </div>
-                <DayDisplay/>
+                <DayDisplay onClick={(updateArray) => (handleButtonClick = updateArray)} />
             </div>
         </div>
     );
