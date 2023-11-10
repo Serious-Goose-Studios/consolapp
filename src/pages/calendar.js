@@ -47,6 +47,7 @@ function EventsDisplay() {
 
 var eventsByDay = {}
 export default function Calendar(){
+
     let date = new Date();
     let year = date.getFullYear();
     let month = date.getMonth();
@@ -98,7 +99,7 @@ export default function Calendar(){
                 var tempyear= year;
                 var tempmonth = month;
             }
-            lit += `<li class="inactive" data-month="${tempmonth}" onClick="handleButtonClick(updateArray, '${i}', '${month + 1}', '${year}')">${monthlastdate - i + 1}</li>`;
+            lit += `<li class="inactive" data-month="${tempmonth}">${monthlastdate - i + 1}</li>`;
             var monthDay = `${tempyear}/${tempmonth}/${monthlastdate - i + 1}`;
             eventsByDay[monthDay] = {};
         }
@@ -112,7 +113,7 @@ export default function Calendar(){
                 && year === new Date().getFullYear()
                 ? "active"
                 : "inMonth";
-            lit += `<li class="${isToday}" data-month="${month + 1}" onClick="handleButtonClick(updateArray, '${i}', '${month + 1}', '${year}')">${i}</li>`;
+            lit += `<li class="${isToday}" data-month="${month + 1}">${i}</li>`;
             var monthDay = `${year}/${month + 1}/${i}`;
             eventsByDay[monthDay] = {};
         }
@@ -128,7 +129,7 @@ export default function Calendar(){
                 var tempmonth = month + 2;
             }
             
-            lit += `<li class="inactive" data-month="${tempmonth}" onClick="handleButtonClick(updateArray, '${i}', '${month + 1}', '${year}')">${i - dayend + 1}</li>`
+            lit += `<li class="inactive" data-month="${tempmonth}">${i - dayend + 1}</li>`
             var yearMonthDay = `${tempyear}/${tempmonth}/${i - dayend + 1}`;
             eventsByDay[yearMonthDay] = {};
         }
@@ -249,17 +250,15 @@ export default function Calendar(){
             manipulate();
     } 
 
-    function DayDisplay({ onClick }) {
+    function DayDisplay() {
         const [dayArray, setDayArray] = useState([""]);
         const [dayDate, setDayDate] = useState("");
 
         const updateArray = (dayKey, monthKey, yearKey) => {
-            console.log("clicked");
             var dateDisplay = `${monthKey}/${dayKey}/${yearKey}`
             setDayDate(dateDisplay)
 
             var dateKey = `${yearKey}/${monthKey}/${dayKey}`
-            console.log(dateKey);
             var daysEvents = eventsByDay[dateKey] && eventsByDay[dateKey].events;
             if(!daysEvents || Object.keys(daysEvents).length === 0){
                 setDayArray(["No Events on this Day"]);
@@ -272,12 +271,7 @@ export default function Calendar(){
         useEffect(() => {
             // Call the updateArray function when the component mounts
             updateArray(`${date.getDate()}`, `${month + 1}`, `${year}`);
-          }, []);
-        
-          useEffect(() => {
-            // Call the updateArray function when the pre-existing button is clicked
-            onClick(updateArray);
-          }, [onClick]);
+        }, []);
         
         return (
           <div>
@@ -286,11 +280,6 @@ export default function Calendar(){
           </div>
         );
     }
-
-    let handleButtonClick = (updateArray, dayKey, monthKey, yearKey) => {
-        // Call the updateArray function when the pre-existing button is clicked
-        updateArray(dayKey, monthKey, yearKey);
-    };
     
     return(
         <div id="CalendarPage">
@@ -333,7 +322,7 @@ export default function Calendar(){
                     <header id="eventsHeader">Upcoming Events:</header>
                     <EventsDisplay/>
                 </div>
-                <DayDisplay onClick={(updateArray) => (handleButtonClick = updateArray)} />
+                <DayDisplay />
             </div>
         </div>
     );
