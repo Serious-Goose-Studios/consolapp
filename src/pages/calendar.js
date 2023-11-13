@@ -4,10 +4,11 @@ import { homeButton } from './home.js';
 import home from '../components/home.png';
 
 
-const Events = {"Finally A Break":{"start":{"day":"20th","month":"November","year":"2023"},"end":{"day":"24th","month":"November","year":"2023"}},"FREEDOM":{"start":{"day":"15th","month":"December","year":"2023"}},"Made Up Holiday":{"start":{"day":"18th","month":"December","year":"2023"},"end":{"day":"1st","month":"January","year":"2024"}}};
+const Events = {"Your Mom":{"start":{"day":"20th","month":"November","year":"2023"}}, "Finally A Break":{"start":{"day":"20th","month":"November","year":"2023"},"end":{"day":"24th","month":"November","year":"2023"}},"FREEDOM":{"start":{"day":"15th","month":"December","year":"2023"}},"Made Up Holiday":{"start":{"day":"18th","month":"December","year":"2023"},"end":{"day":"1st","month":"January","year":"2024"}}};
 const eventList = Object.keys(Events);
 function EventsDisplay() {
     // State variable to hold the string
+    
     const [eventsArray, setEventsArray] = useState([""]);
   
     // Function to update the string
@@ -47,6 +48,27 @@ function EventsDisplay() {
 
 var eventsByDay = {}
 export default function Calendar(){
+    const [dayEventList, setDayEventList] = useState([""]);
+    const [dayDate, setDayDate] = useState("");
+
+    const updateEventList = (dayKey, monthKey, yearKey) => {
+        console.log(`${dayKey},${monthKey},${yearKey}`)
+        var dateDisplay = `${monthKey}/${dayKey}/${yearKey}`
+        setDayDate(dateDisplay)
+
+        var dateKey = `${yearKey}/${monthKey}/${dayKey}`
+        var daysEvents = eventsByDay[dateKey] && eventsByDay[dateKey].events;
+        if(!daysEvents || Object.keys(daysEvents).length === 0){
+            setDayEventList(["No Events on this Day"]);
+        }
+        else{
+            setDayEventList(daysEvents.map(event => <React.Fragment key={event}>{event}<br /></React.Fragment>));  
+        }     
+    };
+    useEffect(() => {
+        // Call the updateArray function when the component mounts
+        updateEventList(`${date.getDate()}`, `${month + 1}`, `${year}`);
+    }, []);
 
     let date = new Date();
     let year = date.getFullYear();
@@ -67,8 +89,6 @@ export default function Calendar(){
         "November",
         "December"
     ];
-
-
 
     const manipulate = () => {
         const day = document.querySelector(".calendar-dates");
@@ -99,9 +119,9 @@ export default function Calendar(){
                 var tempyear= year;
                 var tempmonth = month;
             }
-            lit += `<li class="inactive" data-month="${tempmonth}">${monthlastdate - i + 1}</li>`;
-            var monthDay = `${tempyear}/${tempmonth}/${monthlastdate - i + 1}`;
-            eventsByDay[monthDay] = {};
+            lit += `<li class="inactive" data-month="${tempmonth}" data-day="${monthlastdate - i + 1}" data-year="${tempyear}">${monthlastdate - i + 1}</li>`;
+            var yearMonthDay = `${tempyear}/${tempmonth}/${monthlastdate - i + 1}`;
+            eventsByDay[yearMonthDay] = {};
         }
     
         // Loop to add the dates of the current month
@@ -113,9 +133,9 @@ export default function Calendar(){
                 && year === new Date().getFullYear()
                 ? "active"
                 : "inMonth";
-            lit += `<li class="${isToday}" data-month="${month + 1}">${i}</li>`;
-            var monthDay = `${year}/${month + 1}/${i}`;
-            eventsByDay[monthDay] = {};
+            lit += `<li class="${isToday}" data-month="${month + 1}" data-day="${i}" data-year="${year}">${i}</li>`;
+            var yearMonthDay = `${year}/${month + 1}/${i}`;
+            eventsByDay[yearMonthDay] = {};
         }
     
         // Loop to add the first dates of the next month
@@ -129,7 +149,7 @@ export default function Calendar(){
                 var tempmonth = month + 2;
             }
             
-            lit += `<li class="inactive" data-month="${tempmonth}">${i - dayend + 1}</li>`
+            lit += `<li class="inactive" data-month="${tempmonth}" data-day="${i - dayend + 1}" data-year="${tempyear}">${i - dayend + 1}</li>`
             var yearMonthDay = `${tempyear}/${tempmonth}/${i - dayend + 1}`;
             eventsByDay[yearMonthDay] = {};
         }
@@ -142,12 +162,19 @@ export default function Calendar(){
         // with the generated calendar
         day.innerHTML = lit;
 
+        const elementsWithDataEvent = document.querySelectorAll('[data-day]');
+        elementsWithDataEvent.forEach(element => {
+            const dayValue = element.getAttribute('data-day');
+            const monthValue = element.getAttribute('data-month');
+            const yearValue = element.getAttribute('data-year');
+            element.addEventListener('click', () => updateEventList(dayValue, monthValue, yearValue));
+        });
         
         const dayList = Object.keys(eventsByDay);
         dayList.forEach(splitEvents);
 
         function splitEvents(key){
-            eventsByDay[key].events = {};
+            eventsByDay[key].events = [];
             var dateArray = key.split('/').map(function(num) {
                 return parseInt(num, 10);
             });
@@ -182,14 +209,14 @@ export default function Calendar(){
                         }
                         if(splitMonth >= numStartMonth && splitMonth <= numEndMonth){
                             if(splitDay >= numStartDay && splitDay <= numEndDay){
-                                eventsByDay[key].events += item;
+                                eventsByDay[key].events = [eventsByDay[key].events, item];;
                             }
                             if(numStartMonth !== numEndMonth){
                                 if(splitDay >= numStartDay && splitMonth === numStartMonth){
-                                    eventsByDay[key].events += item;
+                                    eventsByDay[key].events = [eventsByDay[key].events, item];;
                                 }
                                 if(splitDay <= numEndDay && (splitMonth === numEndMonth || splitMonth + 12 === numEndMonth)){
-                                    eventsByDay[key].events += item;
+                                    eventsByDay[key].events = [eventsByDay[key].events, item];;
                                 }
                             }
                         }
@@ -251,32 +278,10 @@ export default function Calendar(){
     } 
 
     function DayDisplay() {
-        const [dayArray, setDayArray] = useState([""]);
-        const [dayDate, setDayDate] = useState("");
-
-        const updateArray = (dayKey, monthKey, yearKey) => {
-            var dateDisplay = `${monthKey}/${dayKey}/${yearKey}`
-            setDayDate(dateDisplay)
-
-            var dateKey = `${yearKey}/${monthKey}/${dayKey}`
-            var daysEvents = eventsByDay[dateKey] && eventsByDay[dateKey].events;
-            if(!daysEvents || Object.keys(daysEvents).length === 0){
-                setDayArray(["No Events on this Day"]);
-            }
-            else{
-                setDayArray(Object.keys(daysEvents));  
-            }     
-        };
-
-        useEffect(() => {
-            // Call the updateArray function when the component mounts
-            updateArray(`${date.getDate()}`, `${month + 1}`, `${year}`);
-        }, []);
-        
         return (
           <div>
             {/* Display the string */}
-            <div id="currDayInfo"><header id="dayInfoHeader">{dayDate} Events</header><br/>{dayArray}</div>
+            <div id="currDayInfo"><header id="dayInfoHeader">{dayDate} Events</header><br/>{dayEventList}</div>
           </div>
         );
     }
