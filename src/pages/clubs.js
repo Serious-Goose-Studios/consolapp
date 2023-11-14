@@ -1,19 +1,52 @@
 import React from 'react';
+import { useState, useRef, useEffect } from 'react';
 import TigerLogo from '../components/TigerLogo.png';
 import home from '../components/home.png';
 import { homeButton } from './home.js';
 
-function ClubListing({ ctitle, sponsor, descript, clogo, nextmeet, roomnum }){
-    return (
-        <div id="clist">
-            <p id="cname">{ctitle}</p>
-            <p id="chost">Club Sponsor(s): {sponsor}</p>
-            <p id="cdesc">{descript}</p>
-            <img id="cimg" alt="" src={clogo} />
-            <p id="cmeet">Next Meeting: {nextmeet}</p>
-            <p id="croom">Meeting in Room: {roomnum}</p>
-        </div>
-    );
+var ClubsList = {"Art Club":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"}, "Business Professionals of America":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"Environmental Club":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"Gay Straight Alliance":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"Floral Club":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"Robotics Club":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"SkillsUSA":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"}}
+const ClubNames  = Object.keys(ClubsList)
+ClubNames.sort();
+function ClubListing(){
+    const [clubArray, setClubArray] = useState([""]);
+      
+        // Function to update the string
+        const updateArray = () => {
+            const updatedArray = ClubNames.map((clubName) => {
+                const clubInfo = ClubsList[clubName];
+                const hostTeacher = clubInfo.sponsor;
+                const basicInfo = clubInfo.descript;
+                const meeting = clubInfo.nextmeet;
+                const hostRoom = clubInfo.roomnum;
+                return (
+                    <div id="clist">
+                        <p id="cname">{clubName}</p>
+                        <p id="chost">Club Sponsor(s): {hostTeacher}</p>
+                        <p id="cdesc">{basicInfo}</p>
+                        <img id="cimg" alt="" src={TigerLogo} />
+                        <p id="cmeet">Next Meeting: {meeting}</p>
+                        <p id="croom">Meeting in Room: {hostRoom}</p>
+                        <br/>
+                    </div>
+                );
+            });
+            setClubArray(updatedArray);
+        };
+        const buttonRef = useRef(null);
+        useEffect(() => {
+            buttonRef.current.addEventListener('click', updateArray);
+            buttonRef.current.click();
+        }, []);
+        
+        return (
+          <div>
+            {/* Display the string */}
+            <div>{clubArray}</div>
+      
+            {/* Button to update the string */}
+            <button ref={buttonRef} id="classUpdate" onClick={updateArray}>Update String</button>
+          </div>
+        );
 }
 
 function addClub(){
@@ -29,7 +62,7 @@ export default function ClubsPage(){
                 <p id="NavTitle">Clubs</p>
                 <button className="navButton" id="ccreate" onClick={addClub}>Add Club</button>
             </div>
-            <ClubListing ctitle="Newspaper Club" descript="The Roar is our schools newspaper that shines light on student researched and written topics." clogo={TigerLogo} sponsor="Mr. Williams" nextmeet="Tommorrow" roomnum="2303"/>
+            <ClubListing />
         </div>
     )
 }
