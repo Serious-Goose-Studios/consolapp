@@ -303,6 +303,8 @@ export default function Calendar(){
     function updateStyle(){
         if(light){
             document.querySelector("body").style.background = "linear-gradient(to right,  #ffffff 0%, #ffffff 65%, #601c2e 99%,#601c2e 100%)";
+            document.getElementById("NavBar").style.background = "#520000"
+            document.getElementById("NavBar").style.borderBottomColor = "#000"
         }
         else{
           document.getElementById("main").style.background = "linear-gradient(to right,  #601c2e 0%,#601c2e 5%,#520000 45%,#520000 65%,#2e0010 95%,#2e0010 100%)";
