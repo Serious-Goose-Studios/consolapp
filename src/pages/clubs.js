@@ -1,53 +1,9 @@
 import React from 'react';
 import { useState, useRef, useEffect } from 'react';
+import axios from 'axios';
 import TigerLogo from '../components/TigerLogo.png';
 import home from '../components/home.png';
 import { homeButton } from './home.js';
-
-var ClubsList = {"Art Club":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"}, "Business Professionals of America":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"Environmental Club":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"Gay Straight Alliance":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"Floral Club":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"Robotics Club":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"SkillsUSA":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"}}
-const ClubNames  = Object.keys(ClubsList)
-ClubNames.sort();
-function ClubListing(){
-    const [clubArray, setClubArray] = useState([""]);
-      
-        // Function to update the string
-        const updateArray = () => {
-            const updatedArray = ClubNames.map((clubName) => {
-                const clubInfo = ClubsList[clubName];
-                const hostTeacher = clubInfo.sponsor;
-                const basicInfo = clubInfo.descript;
-                const meeting = clubInfo.nextmeet;
-                const hostRoom = clubInfo.roomnum;
-                return (
-                    <div id="clist">
-                        <p id="cname">{clubName}</p>
-                        <p id="chost">Club Sponsor(s): {hostTeacher}</p>
-                        <p id="cdesc">{basicInfo}</p>
-                        <img id="cimg" alt="" src={TigerLogo} />
-                        <p id="cmeet">Next Meeting: {meeting}</p>
-                        <p id="croom">Meeting in Room: {hostRoom}</p>
-                        <br/>
-                    </div>
-                );
-            });
-            setClubArray(updatedArray);
-        };
-        const buttonRef = useRef(null);
-        useEffect(() => {
-            buttonRef.current.addEventListener('click', updateArray);
-            buttonRef.current.click();
-        }, []);
-        
-        return (
-          <div>
-            {/* Display the string */}
-            <div>{clubArray}</div>
-      
-            {/* Button to update the string */}
-            <button ref={buttonRef} id="classUpdate" onClick={updateArray}>Update String</button>
-          </div>
-        );
-}
 
 function addClub(){
     console.log("added club");
@@ -55,6 +11,66 @@ function addClub(){
 
 
 export default function ClubsPage(){
+    const[isLoading, setIsLoading] = useState(false);
+    var ClubsList = {"Art Club":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"}, "Business Professionals of America":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"Environmental Club":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"Gay Straight Alliance":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"Floral Club":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"Robotics Club":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"SkillsUSA":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"}}
+
+    function APIGetRequest(){
+        setIsLoading(true);
+        const url = "https://backend.consolapp.tech/api/clubs";
+        axios.get(url)
+            .then(function(response){
+                ClubsList = response.data;
+                setIsLoading(false);})
+            .catch(err => console.log(err), setIsLoading(false))
+    }
+    useEffect(() => {
+        APIGetRequest()
+    },[]);
+    
+    const ClubNames  = Object.keys(ClubsList)
+    ClubNames.sort();
+    function ClubListing(){
+        const [clubArray, setClubArray] = useState([""]);
+        
+            // Function to update the string
+            const updateArray = () => {
+                const updatedArray = ClubNames.map((clubName, index) => {
+                    const clubInfo = ClubsList[clubName];
+                    const hostTeacher = clubInfo.sponsor;
+                    const basicInfo = clubInfo.descript;
+                    const meeting = clubInfo.nextmeet;
+                    const hostRoom = clubInfo.roomnum;
+                    return (
+                        <div id="clist" key={index}>
+                            <p id="cname">{clubName}</p>
+                            <p id="chost">Club Sponsor(s): {hostTeacher}</p>
+                            <p id="cdesc">{basicInfo}</p>
+                            <img id="cimg" alt="" src={TigerLogo} />
+                            <p id="cmeet">Next Meeting: {meeting}</p>
+                            <p id="croom">Meeting in Room: {hostRoom}</p>
+                            <br/>
+                        </div>
+                    );
+                });
+                setClubArray(updatedArray);
+            };
+            const buttonRef = useRef(null);
+            useEffect(() => {
+                buttonRef.current.addEventListener('click', updateArray);
+                buttonRef.current.click();
+            }, []);
+            
+            return (
+            <div>
+                {/* Display the string */}
+                <div>{clubArray}</div>
+        
+                {/* Button to update the string */}
+                <button ref={buttonRef} id="classUpdate" onClick={updateArray}>Update String</button>
+            </div>
+            );
+    }
+
     return(
         <div id="ClubsPage">
             <div id="NavBar">
@@ -62,6 +78,7 @@ export default function ClubsPage(){
                 <p id="NavTitle">Clubs</p>
                 <button className="navButton" id="ccreate" onClick={addClub}>Add Club</button>
             </div>
+            {isLoading ? <div className="loading-spinner"/>: null}
             <ClubListing />
         </div>
     )

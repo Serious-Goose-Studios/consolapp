@@ -1,55 +1,71 @@
 import React from 'react';
 import { useState, useRef, useEffect } from 'react';
+import axios from 'axios';
 import { homeButton } from './home.js';
 import home from '../components/home.png';
 
 
-const Events = {"Your Mom":{"start":{"day":"20th","month":"November","year":"2023"}}, "Finally A Break":{"start":{"day":"20th","month":"November","year":"2023"},"end":{"day":"24th","month":"November","year":"2023"}},"FREEDOM":{"start":{"day":"15th","month":"December","year":"2023"}},"Made Up Holiday":{"start":{"day":"18th","month":"December","year":"2023"},"end":{"day":"1st","month":"January","year":"2024"}}};
-const eventList = Object.keys(Events);
-function EventsDisplay() {
-    // State variable to hold the string
-    
-    const [eventsArray, setEventsArray] = useState([""]);
-  
-    // Function to update the string
-    const updateUpcomingEvents = () => {
-        const updatedArray = eventList.map((eventName, index) => {
-            const eventInfo = Events[eventName];
-            if('end' in eventInfo){
-                var eventString = `${eventInfo.start.month} ${eventInfo.start.day} - ${eventInfo.end.month} ${eventInfo.end.day}: ${eventName}`;
-            }
-            else{
-                var eventString = `${eventInfo.start.month} ${eventInfo.start.day}: ${eventName}`;
-            }
-            return (
-                <div id="dayEvents" key={index}>
-                    {eventString}
-                </div>
-            );
-        });
-        setEventsArray(updatedArray);
-    };
-    const buttonRef = useRef(null);
-    useEffect(() => {
-        buttonRef.current.addEventListener('click', updateUpcomingEvents);
-        buttonRef.current.click();
-    }, []);
-    
-    return (
-      <div>
-        {/* Display the string */}
-        <div>{eventsArray}</div>
-  
-        {/* Button to update the string */}
-        <button ref={buttonRef} id="classUpdate" onClick={updateUpcomingEvents}>Update String</button>
-      </div>
-    );
-}
+
 
 var eventsByDay = {}
 export default function Calendar(){
+    const[isLoading, setIsLoading] = useState(false);
     const [dayEventList, setDayEventList] = useState([""]);
     const [dayDate, setDayDate] = useState("");
+    
+    var Events = {"Your Mom":{"start":{"day":"20th","month":"November","year":"2023"}}, "Finally A Break":{"start":{"day":"20th","month":"November","year":"2023"},"end":{"day":"24th","month":"November","year":"2023"}},"FREEDOM":{"start":{"day":"15th","month":"December","year":"2023"}},"Made Up Holiday":{"start":{"day":"18th","month":"December","year":"2023"},"end":{"day":"1st","month":"January","year":"2024"}}};
+    function APIGetRequest(){
+        setIsLoading(true);
+        const url = "https://backend.consolapp.tech/api/calendar";
+        axios.get(url)
+            .then(function(response){
+                Events = response.data;
+                setIsLoading(false);})
+            .catch(err => console.log(err), setIsLoading(false))
+    }
+    useEffect(() => {
+        APIGetRequest()
+    },[]);
+    const eventList = Object.keys(Events);
+    function EventsDisplay() {
+        // State variable to hold the string
+        
+        const [eventsArray, setEventsArray] = useState([""]);
+    
+        // Function to update the string
+        const updateUpcomingEvents = () => {
+            const updatedArray = eventList.map((eventName, index) => {
+                const eventInfo = Events[eventName];
+                if('end' in eventInfo){
+                    var eventString = `${eventInfo.start.month} ${eventInfo.start.day} - ${eventInfo.end.month} ${eventInfo.end.day}: ${eventName}`;
+                }
+                else{
+                    var eventString = `${eventInfo.start.month} ${eventInfo.start.day}: ${eventName}`;
+                }
+                return (
+                    <div id="dayEvents" key={index}>
+                        {eventString}
+                    </div>
+                );
+            });
+            setEventsArray(updatedArray);
+        };
+        const buttonRef = useRef(null);
+        useEffect(() => {
+            buttonRef.current.addEventListener('click', updateUpcomingEvents);
+            buttonRef.current.click();
+        }, []);
+        
+        return (
+        <div>
+            {/* Display the string */}
+            <div>{eventsArray}</div>
+    
+            {/* Button to update the string */}
+            <button ref={buttonRef} id="classUpdate" onClick={updateUpcomingEvents}>Update String</button>
+        </div>
+        );
+    }
 
     const updateEventList = (dayKey, monthKey, yearKey) => {
         console.log(`${dayKey},${monthKey},${yearKey}`)
