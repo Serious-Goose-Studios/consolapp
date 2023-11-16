@@ -4,9 +4,7 @@ import axios from 'axios';
 import { homeButton } from './home.js';
 import home from '../components/home.png';
 
-
-
-
+var light = localStorage.getItem("lightMode");
 var eventsByDay = {}
 export default function Calendar(){
     const[isLoading, setIsLoading] = useState(false);
@@ -301,6 +299,20 @@ export default function Calendar(){
           </div>
         );
     }
+
+    function updateStyle(){
+        if(light){
+            document.querySelector("body").style.background = "linear-gradient(to right,  #ffffff 0%, #ffffff 65%, #601c2e 99%,#601c2e 100%)";
+        }
+        else{
+          document.getElementById("main").style.background = "linear-gradient(to right,  #601c2e 0%,#601c2e 5%,#520000 45%,#520000 65%,#2e0010 95%,#2e0010 100%)";
+        }
+      }
+      const buttonRef = useRef(null);
+      useEffect(() => {
+          buttonRef.current.addEventListener('click', updateStyle);
+          buttonRef.current.click();
+      }, []);
     
     return(
         <div id="CalendarPage">
@@ -345,6 +357,7 @@ export default function Calendar(){
                 </div>
                 <DayDisplay />
             </div>
+            <button ref={buttonRef} id="styleUpdate" onClick={updateStyle}>Update Style</button>
         </div>
     );
 }

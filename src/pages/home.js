@@ -136,7 +136,7 @@ function Account(){
 export default function Home(){
   function updateStyle(){
     if(light){
-        document.getElementById("main").style.background = "linear-gradient(to right,  #ffffff 0%, #ffffff 65%, #601c2e 99%,#601c2e 100%)";
+        document.querySelector("body").style.background = "linear-gradient(to right,  #ffffff 0%, #ffffff 65%, #601c2e 99%,#601c2e 100%)";
         document.getElementById("HACButton").style.color = "#000000";
         document.getElementById("Clubs").style.color = "#000000";
         document.getElementById("profile").style.background = "#601c2e";

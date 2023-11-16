@@ -5,10 +5,11 @@ import TigerLogo from '../components/TigerLogo.png';
 import home from '../components/home.png';
 import { homeButton } from './home.js';
 
+var light = localStorage.getItem("lightMode");
+
 function addClub(){
     console.log("added club");
 }
-
 
 export default function ClubsPage(){
     const[isLoading, setIsLoading] = useState(false);
@@ -71,6 +72,21 @@ export default function ClubsPage(){
             );
     }
 
+    function updateStyle(){
+        if(light){
+            document.querySelector("body").style.background = "linear-gradient(to right,  #ffffff 0%, #ffffff 65%, #601c2e 99%,#601c2e 100%)";
+            document.getElementById("NavBar").style.background = "#520000"
+        }
+        else{
+          document.getElementById("main").style.background = "linear-gradient(to right,  #601c2e 0%,#601c2e 5%,#520000 45%,#520000 65%,#2e0010 95%,#2e0010 100%)";
+        }
+      }
+      const buttonRef = useRef(null);
+      useEffect(() => {
+          buttonRef.current.addEventListener('click', updateStyle);
+          buttonRef.current.click();
+      }, []);
+
     return(
         <div id="ClubsPage">
             <div id="NavBar">
@@ -80,6 +96,7 @@ export default function ClubsPage(){
             </div>
             {isLoading ? <div className="loading-spinner"/>: null}
             <ClubListing />
+            <button ref={buttonRef} id="styleUpdate" onClick={updateStyle}>Update Style</button>
         </div>
     )
 }

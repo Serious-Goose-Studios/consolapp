@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 import { homeButton } from './home.js';
 import home from '../components/home.png';
 
-
+var light = localStorage.getItem("lightMode");
 export default function HAC(){
     var isLogged = localStorage.getItem("loggedIn");
     if(!isLogged){
@@ -114,6 +114,22 @@ export default function HAC(){
           </div>
         );
     }
+
+    function updateStyle(){
+        if(light){
+            document.querySelector("body").style.background = "linear-gradient(to right,  #ffffff 0%, #ffffff 65%, #601c2e 99%,#601c2e 100%)";
+            document.getElementById("NavBar").style.background = "#520000"
+        }
+        else{
+            document.getElementById("main").style.background = "linear-gradient(to right,  #601c2e 0%,#601c2e 5%,#520000 45%,#520000 65%,#2e0010 95%,#2e0010 100%)";
+        }
+      }
+    const buttonRef = useRef(null);
+    useEffect(() => {
+        buttonRef.current.addEventListener('click', updateStyle);
+        buttonRef.current.click();
+    }, []);
+
     return(
         <div id="HACPage">
             <div id="NavBar">
@@ -123,6 +139,7 @@ export default function HAC(){
                 <GPADisplay />
             </div>
             <ClassesDisplay />
+            <button ref={buttonRef} id="styleUpdate" onClick={updateStyle}>Update Style</button>
         </div>
     );
 }
