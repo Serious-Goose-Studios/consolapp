@@ -7,6 +7,8 @@ import ClubsPage from './pages/clubs.js';
 import HAC from './pages/HAC.js';
 import Calendar from './pages/calendar.js';
 
+
+//Server IP:174.138.56.80
 let App = function MyApp() {
   return (
     <div> 
