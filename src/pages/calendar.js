@@ -11,7 +11,7 @@ export default function Calendar(){
     const [dayEventList, setDayEventList] = useState([""]);
     const [dayDate, setDayDate] = useState("");
     
-    var Events = {"Your Mom":{"start":{"day":"20th","month":"November","year":"2023"}}, "Finally A Break":{"start":{"day":"20th","month":"November","year":"2023"},"end":{"day":"24th","month":"November","year":"2023"}},"FREEDOM":{"start":{"day":"15th","month":"December","year":"2023"}},"Made Up Holiday":{"start":{"day":"18th","month":"December","year":"2023"},"end":{"day":"1st","month":"January","year":"2024"}}};
+    var Events = {"Test Day":{"start":{"day":"20th","month":"November","year":"2023"}}, "Finally A Break":{"start":{"day":"20th","month":"November","year":"2023"},"end":{"day":"24th","month":"November","year":"2023"}},"FREEDOM":{"start":{"day":"15th","month":"December","year":"2023"}},"Made Up Holiday":{"start":{"day":"18th","month":"December","year":"2023"},"end":{"day":"1st","month":"January","year":"2024"}}};
     function APIGetRequest(){
         setIsLoading(true);
         const url = "https://backend.consolapp.tech/api/calendar";
