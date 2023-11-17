@@ -4,8 +4,9 @@ const express = require("express");
 var cors = require('cors')
 
 const PORT = process.env.PORT || 3001;
-
 const app = express();
+
+// view engine setup
 
 app.get('/', (req, res) => {
     res.render('index', {});
