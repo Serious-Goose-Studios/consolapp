@@ -217,6 +217,14 @@ body {
   padding: 0;
 }
 
+#HACPage{
+  overflow-y: auto;
+  height: 100vh;
+  width:  100%;
+  margin: auto;
+  padding: 0;
+}
+
 #lightmode{
   background: transparent;
   border: none;

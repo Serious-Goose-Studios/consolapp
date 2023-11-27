@@ -1,5 +1,6 @@
 import React  from 'react';
 import { useRef, useEffect } from 'react';
+import secureLocalStorage from 'react-secure-storage';
 import TigerLogo from '../components/TigerLogo.png';
 import element1 from '../components/element1.png';
 import element2 from '../components/element2.png';
@@ -86,8 +87,10 @@ function CloseSettingsButton() {
 function Settings(){
   function logOut(){
     localStorage.removeItem("loggedIn");
-    localStorage.removeItem("classData");
-    localStorage.removeItem("rankData");
+    secureLocalStorage.removeItem("classData");
+    secureLocalStorage.removeItem("rankData");
+    secureLocalStorage.removeItem("user");
+    secureLocalStorage.removeItem("pass");
     window.location.reload();
   }
     return(

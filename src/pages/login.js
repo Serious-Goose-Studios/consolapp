@@ -1,9 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
-import axios from 'axios'
+import axios from 'axios';
 import home from '../components/home.png';
 import HACLogo from '../components/HACLogo.png';
 import { homeButton } from './home.js';
+import secureLocalStorage from 'react-secure-storage';
 function HACDirect() {
     window.location.href = 'https://hac.csisd.org/HomeAccess/Account/LogOn?ReturnUrl=%2fhomeaccess%2f'
 }
@@ -29,7 +30,7 @@ export default function Login() {
                 .catch(err => console.log(err))
         });
         rankPromise.then(
-            function(value){localStorage.setItem("rankData", value);}
+            function(){}
         )
         let classPromise = new Promise(function APIGetRequest(resolve) {
             const config = {
@@ -51,8 +52,9 @@ export default function Login() {
 
         classPromise.then(
             function(value){ 
-                localStorage.setItem("classData", value);
                 if(data.success === true){
+                    secureLocalStorage.setItem("user", document.getElementById("userin").value)
+                    secureLocalStorage.setItem("pass", document.getElementById("passin").value)
                     var from = localStorage.getItem("returnTo");
                     localStorage.setItem("loggedIn", true);
                     if(from === "hac")

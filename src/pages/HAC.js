@@ -1,10 +1,62 @@
 import React from 'react';
 import { useState, useRef, useEffect } from 'react';
+import secureLocalStorage from 'react-secure-storage';
+import axios from 'axios';
 import { homeButton } from './home.js';
 import home from '../components/home.png';
 
+var data = [];
 var light = localStorage.getItem("lightMode");
 export default function HAC(){
+    function APIGetRequest(){
+        let rankPromise = new Promise(function APIGetRequest(resolve) {
+            const config = {
+                headers: {
+                    user: secureLocalStorage.getItem("user"),
+                    pass: secureLocalStorage.getItem("pass")
+                }
+            };
+            const url = "https://backend.consolapp.tech/api/rank";
+            axios.get(url, config)
+                .then(function(response){
+                    data = response.data;
+                    resolve(JSON.stringify(data.rank))})
+                .catch(err => console.log(err))
+        });
+        rankPromise.then(
+            function(value){secureLocalStorage.setItem("rankData", value);}
+        )
+        let classPromise = new Promise(function APIGetRequest(resolve) {
+            const config = {
+                headers: {
+                    user: secureLocalStorage.getItem("user"),
+                    pass: secureLocalStorage.getItem("pass")
+                }
+            };
+            const url = "https://backend.consolapp.tech/api/assignments";
+            axios.get(url, config)
+                .then(function(response){
+                    data = response.data;
+                    resolve(JSON.stringify(data));
+                })
+                .catch(err => console.log(err))
+        });
+
+        classPromise.then(
+            function(value){ 
+                secureLocalStorage.setItem("classData", value);
+                if(data.success === false){
+                    document.getElementById('errTxt').innerHTML = data.message;
+                    document.getElementById('loginErr').style.display = "inline";
+                }
+            }
+        )
+    }
+
+    useEffect(() => {
+        APIGetRequest()
+    }, [])
+
     var isLogged = localStorage.getItem("loggedIn");
     if(!isLogged){
         return(
@@ -12,10 +64,12 @@ export default function HAC(){
         );
     }
 
-    var rank = localStorage.getItem("rankData");
+    var rank = secureLocalStorage.getItem("rankData");
     rank = JSON.parse(rank)
-    var classes = localStorage.getItem("classData");
+    console.log(rank)
+    var classes = secureLocalStorage.getItem("classData");
     classes = JSON.parse(classes)
+    console.log(classes)
 
     const classList = Object.keys(classes);
     classList.pop();
