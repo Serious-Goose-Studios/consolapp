@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import secureLocalStorage from 'react-secure-storage';
 import axios from 'axios';
 import { homeButton } from './home.js';
@@ -8,6 +8,11 @@ import home from '../components/home.png';
 var data = [];
 var light = localStorage.getItem("lightMode");
 export default function HAC(){
+    const [rankString, setRankString] = useState("Login to see rank");
+    const [gpaString, setGPAString] = useState("Login to see GPA");
+    const [classArray, setClassArray] = useState(["Login to see class info"]);
+    const [dataCollected, setDataCollected] = useState(false);
+    
     function APIGetRequest(){
         let rankPromise = new Promise(function APIGetRequest(resolve) {
             const config = {
@@ -53,81 +58,19 @@ export default function HAC(){
         )
     }
 
-    useEffect(() => {
+    var rank;
+    var classes;
+    var classList;
+    useLayoutEffect(() => {
         APIGetRequest()
+        function done(){
+            setDataCollected(true)
+        }
+        setTimeout(done, 3000)
     }, [])
-
-    var isLogged = localStorage.getItem("loggedIn");
-    if(!isLogged){
-        return(
-            <p>Login to view this page</p>
-        );
-    }
-
-    var rank = secureLocalStorage.getItem("rankData");
-    rank = JSON.parse(rank)
-    console.log(rank)
-    var classes = secureLocalStorage.getItem("classData");
-    classes = JSON.parse(classes)
-    console.log(classes)
-
-    const classList = Object.keys(classes);
-    classList.pop();
-
-    function RankDisplay(){
-        // State variable to hold the string
-        const [rankString, setRankString] = useState("Login to see rank");
-      
-        // Function to update the string
-        const updateString = () => {
-            setRankString(rank.rank);
-        };
-        const buttonRef = useRef(null);
-        useEffect(() => {
-            buttonRef.current.addEventListener('click', updateString);
-            buttonRef.current.click();
-        }, []);
-        
-        return (
-          <div>
-            {/* Display the string */}
-            <p id="rankDisplay">Rank: {rankString}</p>
-      
-            {/* Button to update the string */}
-            <button ref={buttonRef} id="rankUpdate" onClick={updateString}>Update String</button>
-          </div>
-        );
-    }
-    function GPADisplay(){
-        // State variable to hold the string
-        const [gpaString, setGPAString] = useState("Login to see GPA");
-      
-        // Function to update the string
-        const updateString = () => {
-            setGPAString(rank.gpa);
-        };
-        const buttonRef = useRef(null);
-        useEffect(() => {
-            buttonRef.current.addEventListener('click', updateString);
-            buttonRef.current.click();
-        }, []);
-        
-        return (
-          <div>
-            {/* Display the string */}
-            <p id="gpaDisplay">GPA: {gpaString}</p>
-      
-            {/* Button to update the string */}
-            <button ref={buttonRef} id="rankUpdate" onClick={updateString}>Update String</button>
-          </div>
-        );
-    }
-    function ClassesDisplay() {
-        // State variable to hold the string
-        const [classArray, setClassArray] = useState(["Login to see class info"]);
-      
-        // Function to update the string
-        const updateArray = () => {
+    const updateData = () => {
+        setRankString(rank.rank);
+        setGPAString(rank.gpa);
             const updatedArray = classList.map((className, index) => {
                 const classInfo = classes[className];
                 var classString = `${className}: ${classInfo.average}`;
@@ -150,21 +93,52 @@ export default function HAC(){
                     </div>
                 );
             });
-            setClassArray(updatedArray);
-        };
-        const buttonRef = useRef(null);
-        useEffect(() => {
-            buttonRef.current.addEventListener('click', updateArray);
-            buttonRef.current.click();
-        }, []);
-        
+        setClassArray(updatedArray);
+    }
+    useEffect(() => {
+        rank = secureLocalStorage.getItem("rankData");
+        rank = JSON.parse(rank)
+        classes = secureLocalStorage.getItem("classData");
+        classes = JSON.parse(classes)
+
+        if(dataCollected){
+            classList = Object.keys(classes);
+            classList.pop();
+
+            updateData()
+        }
+    }, [dataCollected])
+
+    var isLogged = localStorage.getItem("loggedIn");
+    if(!isLogged){
+        return(
+            <p>Login to view this page</p>
+        );
+    }
+
+    
+
+    function RankDisplay(){
+        return (
+          <div>
+            {/* Display the string */}
+            <p id="rankDisplay">Rank: {rankString}</p>
+          </div>
+        );
+    }
+    function GPADisplay(){    
+        return (
+          <div>
+            {/* Display the string */}
+            <p id="gpaDisplay">GPA: {gpaString}</p>
+          </div>
+        );
+    }
+    function ClassesDisplay() {   
         return (
           <div>
             {/* Display the string */}
             <div>{classArray}</div>
-      
-            {/* Button to update the string */}
-            <button ref={buttonRef} id="classUpdate" onClick={updateArray}>Update String</button>
           </div>
         );
     }
@@ -187,6 +161,8 @@ export default function HAC(){
 
     return(
         <div id="HACPage">
+            {dataCollected ? 
+            <>
             <div id="NavBar">
                 <button className="cornerButton" onClick={homeButton}><img id="cornerImg" alt="cornerHome" src={home} /></button>
                 <p id="NavTitle">HAC</p>
@@ -194,6 +170,8 @@ export default function HAC(){
                 <GPADisplay />
             </div>
             <ClassesDisplay />
+            </>
+            : <div className="loading-spinner"/>}
             <button ref={buttonRef} id="styleUpdate" onClick={updateStyle}>Update Style</button>
         </div>
     );
