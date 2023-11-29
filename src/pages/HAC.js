@@ -50,6 +50,7 @@ export default function HAC(){
         classPromise.then(
             function(value){ 
                 secureLocalStorage.setItem("classData", value);
+                setDataCollected(true)
                 if(data.success === false){
                     document.getElementById('errTxt').innerHTML = data.message;
                     document.getElementById('loginErr').style.display = "inline";
@@ -63,10 +64,6 @@ export default function HAC(){
     var classList;
     useLayoutEffect(() => {
         APIGetRequest()
-        function done(){
-            setDataCollected(true)
-        }
-        setTimeout(done, 3000)
     }, [])
     const updateData = () => {
         setRankString(rank.rank);
