@@ -113,8 +113,6 @@ export default function HAC(){
         );
     }
 
-    
-
     function RankDisplay(){
         return (
           <div>
