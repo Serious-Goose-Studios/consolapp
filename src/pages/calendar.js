@@ -7,19 +7,17 @@ import home from '../components/home.png';
 var light = localStorage.getItem("lightMode");
 var eventsByDay = {}
 export default function Calendar(){
-    const[isLoading, setIsLoading] = useState(false);
     const [dayEventList, setDayEventList] = useState([""]);
     const [dayDate, setDayDate] = useState("");
     
-    var Events = {"Test Day":{"start":{"day":"20th","month":"November","year":"2023"}}, "Finally A Break":{"start":{"day":"20th","month":"November","year":"2023"},"end":{"day":"24th","month":"November","year":"2023"}},"FREEDOM":{"start":{"day":"15th","month":"December","year":"2023"}},"Made Up Holiday":{"start":{"day":"18th","month":"December","year":"2023"},"end":{"day":"1st","month":"January","year":"2024"}}};
+    var Events = {"Test Day":{"start":{"day":"20th","month":"November","year":"2023"}}, "Finally A Break":{"start":{"day":"20th","month":"November","year":"2023"},"end":{"day":"24th","month":"November","year":"2023"}},"FREEDOM":{"start":{"day":"15th","month":"December","year":"2023"}, "end":{"day":"15th","month":"December","year":"2023"}},"Made Up Holiday":{"start":{"day":"18th","month":"December","year":"2023"},"end":{"day":"1st","month":"January","year":"2024"}}};
     function APIGetRequest(){
-        setIsLoading(true);
         const url = "https://backend.consolapp.tech/api/calendar";
         axios.get(url)
             .then(function(response){
                 Events = response.data;
-                setIsLoading(false);})
-            .catch(err => console.log(err), setIsLoading(false))
+            })
+            .catch(err => console.log(err))
     }
     useEffect(() => {
         APIGetRequest()
@@ -66,7 +64,6 @@ export default function Calendar(){
     }
 
     const updateEventList = (dayKey, monthKey, yearKey) => {
-        console.log(`${dayKey},${monthKey},${yearKey}`)
         var dateDisplay = `${monthKey}/${dayKey}/${yearKey}`
         setDayDate(dateDisplay)
 
@@ -257,7 +254,6 @@ export default function Calendar(){
                 days[index].innerHTML += `<div class="dot" />`
             }
         });
-        console.log(calDates);
     }
     useEffect(() => {
         manipulate();
