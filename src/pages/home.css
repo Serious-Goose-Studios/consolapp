@@ -5,7 +5,7 @@
 body {
   text-align: center;
   height: 100vh;
-  width:  100%;
+  width:  100vw;
   background: linear-gradient(
     to right,
     #601c2e 0%,
@@ -40,6 +40,11 @@ body {
   font-weight: bolder;
 }
 
+@media(max-width: 100vh){
+  #elwrap{
+    visibility: hidden;
+  }
+}
 #el1{
   height: 350px;
   transform: rotate(345deg);
@@ -258,7 +263,16 @@ body {
   width: 9.5vh;
   position: absolute;
   top: 3.5vh;
-  left: 7.5vw;
+  left: 15vw;
+}
+@media(min-width: 1200px){
+  #settingsImg{
+    height: 9vh;
+    width: 9.5vh;
+    position: absolute;
+    top: 3.5vh;
+    left: 7.5vw;
+  }
 }
 
 #profileImg{
@@ -280,13 +294,24 @@ body {
 
 #logo{
   position: absolute;
-  top: 0vh;
+  top: calc(12.5vw);
   right: 1vw;
-  height: 50vmin;
-  width: 50vmin;
+  height: 25vw;
+  width: 25vw;
   visibility: visible;
+  z-index:5
 }
-
+@media (min-width: 100vh){
+  #logo{
+    position: absolute;
+    top: calc(25vh - 12.5vw);
+    right: 1vw;
+    height: 25vw;
+    width: 25vw;
+    visibility: visible;
+    z-index:5
+  }
+}
 #logo:hover{
   opacity: 0.85;
 }
@@ -561,6 +586,7 @@ h1{
   color: #ffffff;
   font-size:  20vmin;
   letter-spacing: 1vw;
+  z-index: 10;
 }
 
 h2{
@@ -574,7 +600,7 @@ h2{
   color: #ffffff;
   font-size: 20vmin;
   letter-spacing: 1vw;
-  z-index: 1;
+  z-index: 10;
 }
 
 h3{

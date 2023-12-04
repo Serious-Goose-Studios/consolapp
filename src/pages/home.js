@@ -167,7 +167,7 @@ export default function Home(){
     <div>
       <h1>Consol</h1>
       <h2>App</h2>
-      { light ? <><img id="el1" alt="" src={element4}/><img id="el5" alt="" src={element5}/><img id="el2_1" alt="" src={element2_1}/><img id="el6" alt="" src={element6}/><img id="el3_1" alt="" src={element6_1}/></> : <><img id="el1" alt="" src={element1}/><img id="el2" alt="" src={element2}/><img id="el2_1" alt="" src={element2_1}/><img id="el3" alt="" src={element3}/><img id="el3_1" alt="" src={element3_1}/></>}
+      { light ? <span  id="elwrap"><img id="el1" alt="" src={element4}/><img id="el5" alt="" src={element5}/><img id="el2_1" alt="" src={element2_1}/><img id="el6" alt="" src={element6}/><img id="el3_1" alt="" src={element6_1}/></span> : <span id="elwrap"><img id="el1" alt="" src={element1}/><img id="el2" alt="" src={element2}/><img id="el2_1" alt="" src={element2_1}/><img id="el3" alt="" src={element3}/><img id="el3_1" alt="" src={element3_1}/></span>}
       <Settings />
       <Account />
       <ClubsButton />
