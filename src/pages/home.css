@@ -160,8 +160,15 @@ body {
 
 #HACButton{
   position: absolute;
-  top: 5%;
-  left: 65%;
+  top: 5vh;
+  right: 15vw;
+}
+@media(min-width: 650px){
+  #HACButton{
+    position: absolute;
+    top: 5vh;
+    left: 65vw;
+  }
 }
 
 #CalendarButton{
@@ -192,8 +199,15 @@ body {
 
 #Clubs{
   position: absolute;
-  top: 5%;
-  left: 55%;
+  top: 5vh;
+  right: 30vw;
+}
+@media(min-width: 650px){
+  #Clubs{
+    position: absolute;
+    top: 5vh;
+    left: 55vw;
+  }
 }
 
 #ClubsPage {
@@ -662,6 +676,7 @@ body {
   right: 15vw;
   visibility: hidden;
 }
+
 .pageButton {
   background: transparent;
   border: none;
@@ -681,6 +696,28 @@ body {
   text-align: center;
   width: 100px;
   display: inline;
+}
+@media (min-width: 650px){
+  .pageButton {
+    background: transparent;
+    border: none;
+    float: right;
+    position: absolute;
+    top: 5vh;
+    left: 70vw;
+    font-size: 24px;
+    font-family: arial;
+    font-weight: 1000;
+    color: #ffffff;
+    line-height: 34px;
+    height: 34px;
+    margin-right: -1px;
+    margin-top: -1px;
+    padding: 0;
+    text-align: center;
+    width: 100px;
+    display: inline;
+  }
 }
 
 .pageButton:hover {
