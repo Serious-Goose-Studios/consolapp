@@ -200,7 +200,7 @@ body {
 #Clubs{
   position: absolute;
   top: 5vh;
-  right: 30vw;
+  left: 50vw;
 }
 @media(min-width: 650px){
   #Clubs{
@@ -277,7 +277,7 @@ body {
   width: 9.5vh;
   position: absolute;
   top: 3.5vh;
-  left: 15vw;
+  left: 20vw;
 }
 @media(min-width: 1200px){
   #settingsImg{
