@@ -44,7 +44,13 @@ export default function HAC(){
                     data = response.data;
                     resolve(JSON.stringify(data));
                 })
-                .catch(err => console.log(err))
+                .catch(function(error){
+                    console.log(error);
+                    var status = error.response.status;
+                    if(status === 406){
+                        window.location.href = "./login";
+                    }
+                })
         });
 
         classPromise.then(

@@ -308,20 +308,20 @@ body {
 
 #logo{
   position: absolute;
-  top: calc(12.5vw);
+  top: 2vw;
   right: 1vw;
-  height: 25vw;
-  width: 25vw;
+  height: 50vw;
+  width: 50vw;
   visibility: visible;
   z-index:5
 }
 @media (min-width: 100vh){
   #logo{
     position: absolute;
-    top: calc(25vh - 12.5vw);
+    top: calc(30vh - 15vw);
     right: 1vw;
-    height: 25vw;
-    width: 25vw;
+    height: 30vw;
+    width: 30vw;
     visibility: visible;
     z-index:5
   }
@@ -454,7 +454,7 @@ body {
   border-radius: 2px;
   color: #2e2e2e;
   height: 4vh;
-  width: 18vw;
+  width: 300px;
   font-size: 20px;
   position: absolute;
   left: 13vw;
@@ -492,10 +492,12 @@ body {
   font-weight: lighter;
   position: absolute;
   top: -5%;
-  left: 10%;
+  left: 10vw;
   color: #ffffff;
   font-size: 100px;
+  z-index: 1;
 }
+
 
 
 #submitlogin{
@@ -652,8 +654,9 @@ h6{
   border: none;
   position: fixed;
   top: 6%;
-  left: 4%;
+  left: 2vw;
   height: 100px;
+  z-index: 0;
 }
 
 code {
