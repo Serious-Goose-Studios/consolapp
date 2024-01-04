@@ -349,11 +349,13 @@ export default function Calendar(){
                         <ul className="calendar-dates"></ul>
                     </div>
                 </div>
+                <div id="dayEventContainer">
                 <div className="eventCol" id="upcomingEvents">
                     <header id="eventsHeader">Upcoming Events:</header>
                     <EventsDisplay/>
                 </div>
                 <DayDisplay />
+                </div>
             </div>
             <button ref={buttonRef} id="styleUpdate" onClick={updateStyle}>Update Style</button>
         </div>

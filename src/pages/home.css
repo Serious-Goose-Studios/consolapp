@@ -765,6 +765,7 @@ body {
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr;
   height: 100vh;
+  overflow-y: auto;
 }
 
 .cal-page-top {
@@ -773,16 +774,32 @@ body {
   grid-gap: 16px; /* Adjust the gap as needed */
 }
 
-.calendar-container {
-  grid-column: 1;
-  grid-row: 1;
-  background: #b8b8b8;
-  position: absolute;
-  top: 5vh;
-  width: 80vw;
-  height: 57.5vh;
-  border-bottom-left-radius: 10px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+@media(max-width: 750px){
+  .calendar-container {
+    grid-column: 1;
+    grid-row: 1;
+    background: #f0ebeb;
+    position: absolute;
+    top: 5vh;
+    width: 100vw;
+    height: 57.5vh;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+  }
+}
+@media(min-width: 750px){
+  .calendar-container {
+    grid-column: 1;
+    grid-row: 1;
+    background: #f0ebeb;
+    position: absolute;
+    top: 5vh;
+    width: 80vw;
+    height: 57.5vh;
+    border-bottom-left-radius: 10px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+  }
 }
 
 .calendar-container header {
@@ -856,15 +873,15 @@ header .calendar-current-date {
 }
 
 .calendar-dates li.inactive {
-  color: #ffcf99;
+  color: #b8b8b8;
 }
 
 .calendar-dates li.active {
-  color: #fff;
+  color: #f0ebeb;
 }
 
 .calendar-dates li.inMonth {
-  color: #fff8f0;
+  color: #414141;
 }
 
 .calendar-dates li::before {
@@ -877,7 +894,7 @@ header .calendar-current-date {
   height: 40px;
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  background: #61988e;
+  background: #f0ebeb;
 }
 
 .calendar-dates li.active::before {
@@ -888,25 +905,70 @@ header .calendar-current-date {
   background: #e4e1e1;
 }
 
-.eventCol {
-  grid-column: 2;
-  grid-row: 1 / span 2;
-  display: flex;
-  flex-direction: column;
-  height: 57.5vh; /* Ensure the column takes the full height */
-}
+@media(max-width: 750px){
+  #dayEventContainer{
+    position: relative;
+  }
+  .eventCol {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    display: flex;
+    flex-direction: column;
+    height: 57.5vh; /* Ensure the column takes the full height */
+  }
 
-#upcomingEvents {
-  overflow-y: auto;
-  position: absolute;
-  top: 5vh;
-  right: 0vw;
-  background: #b8b8b8;
-  width: 20vw;
-  border-bottom-right-radius: 10px;
-  border-left: double 5px #000;
-}
 
+  #upcomingEvents {
+    overflow-y: auto;
+    position: absolute;
+    top: 64vh;
+    right: 0vw;
+    background: #f0ebeb;
+    width: 100vw;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-bottom: double 5px #000;
+  }
+
+  #currDayInfo{
+    position: absolute;
+    top: 100%;
+    background: #f0ebeb;
+    min-height: 37vh;
+    width: 100vw;
+  }
+}
+@media(min-width: 750px){
+  .eventCol {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    display: flex;
+    flex-direction: column;
+    height: 57.5vh; /* Ensure the column takes the full height */
+  }
+
+
+  #upcomingEvents {
+    overflow-y: auto;
+    position: absolute;
+    top: 5vh;
+    right: 0vw;
+    background: #f0ebeb;
+    width: 20vw;
+    border-bottom-right-radius: 10px;
+    border-left: double 5px #000;
+  }
+
+  #currDayInfo{
+    position: absolute;
+    bottom: 0vh;
+    background: #f0ebeb;
+    min-height: 37vh;
+    width: 100vw;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+  }
+}
 #eventsHeader {
   padding: 25px 30px 10px;
   text-align: left;
@@ -923,16 +985,7 @@ header .calendar-current-date {
   left: 49%;
   height: 4px;
   width: 4px;
-  background: #fff8f0;
+  background: #1a3544;
   border-radius: 100%;
 }
 
-#currDayInfo{
-  position: absolute;
-  bottom: 0vh;
-  background: #b8b8b8;
-  min-height: 37vh;
-  width: 100vw;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
-}
