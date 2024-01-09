@@ -761,9 +761,6 @@ body {
 }
 
 #CalendarPage {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr;
   height: 100vh;
   overflow-y: auto;
 }
@@ -894,7 +891,7 @@ header .calendar-current-date {
   height: 40px;
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  background: #f0ebeb;
+  background: transparent;
 }
 
 .calendar-dates li.active::before {
@@ -909,31 +906,26 @@ header .calendar-current-date {
   #dayEventContainer{
     position: relative;
   }
-  .eventCol {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-    display: flex;
-    flex-direction: column;
-    height: 57.5vh; /* Ensure the column takes the full height */
-  }
-
 
   #upcomingEvents {
     overflow-y: auto;
     position: absolute;
     top: 64vh;
-    right: 0vw;
     background: #f0ebeb;
+    height: 40vh;
     width: 100vw;
+    border: solid 1px #000;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
     border-bottom: double 5px #000;
+    z-index: 100;
   }
 
   #currDayInfo{
     position: absolute;
-    top: 100%;
+    top: 104vh;
     background: #f0ebeb;
+    border: solid 1px #000;
     min-height: 37vh;
     width: 100vw;
   }
