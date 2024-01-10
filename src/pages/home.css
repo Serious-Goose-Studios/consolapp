@@ -349,10 +349,10 @@ body {
   background: transparent;
   position: absolute;
   top: -11%;
-  left: 1%;
+  left: calc(2% + 18vh);
   font-size: 2.5vmax;
   font-weight: Bold;
-  line-height: 1rem;
+  line-height: 2vh;
 }
 
 #chost{
@@ -364,24 +364,31 @@ body {
 }
 
 #cdesc{
-  font-size: 1.9vmax;
-  font-weight: lighter;
-  position: absolute;
-  top: 15%;
-  left: 2%;
-  width: 80%;
-  line-height: 2.5rem;
-  text-align: left;
+  display: none;
 }
+@media(min-width: 770px){
+  #cdesc{
+    display: flex;
+    font-size: 1.9vmax;
+    font-weight: lighter;
+    position: absolute;
+    top: 15%;
+    left: calc(5% + 18vh);
+    width: 70%;
+    line-height: 2.5rem;
+    text-align: left;
+  }
+}
+
 
 #cimg{
   background: #ffffff;
   border-radius: 10px;
   position: absolute;
-  right: 2%;
-  top: 25%;
-  width: 100px;
-  height: 100px;
+  left: 1%;
+  top: 5%;
+  width: 18vh;
+  height: 18vh;
 }
 
 #cmeet{

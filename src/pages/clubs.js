@@ -41,14 +41,15 @@ export default function ClubsPage(){
                     const basicInfo = clubInfo.descript;
                     const meeting = clubInfo.nextmeet;
                     const hostRoom = clubInfo.roomnum;
+                    /* <p id="chost">Club Sponsor(s): {hostTeacher}</p>
+                    <p id="cmeet">Next Meeting: {meeting}</p>
+                    <p id="croom">Meeting in Room: {hostRoom}</p>
+                    */
                     return (
                         <div id="clist" key={index}>
                             <p id="cname">{clubName}</p>
-                            <p id="chost">Club Sponsor(s): {hostTeacher}</p>
                             <p id="cdesc">{basicInfo}</p>
                             <img id="cimg" alt="" src={TigerLogo} />
-                            <p id="cmeet">Next Meeting: {meeting}</p>
-                            <p id="croom">Meeting in Room: {hostRoom}</p>
                             <br/>
                         </div>
                     );
