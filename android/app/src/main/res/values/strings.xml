@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ConsolApp</string>
+    <string name="title_activity_main">ConsolApp</string>
+    <string name="package_name">com.seriousgoosestudios.consolapp</string>
+    <string name="custom_url_scheme">com.seriousgoosestudios.consolapp</string>
+</resources>
