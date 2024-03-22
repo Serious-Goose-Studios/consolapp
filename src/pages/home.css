@@ -345,7 +345,38 @@ body {
   font-family: Verdana, Tahoma, sans-serif;
 }
 
+#clubInfoPlus{
+  display: none;
+  z-index: 100;
+  background: #601c2e;
+  border: 2px solid #011627;
+  float: right;
+  font-family: monospace;
+  position: absolute;
+  top: 10vh;
+  left: 25vw;
+  font-size: 18px;
+  font-family: arial;
+  font-weight: 300;
+  color: #dbfcff;
+  line-height: 60px;
+  margin: auto;
+  padding: 10px;
+  text-align: left;
+  height: 75vh;
+  width: 60vw;
+}
+
 #cname{
+  background: transparent;
+  position: absolute;
+  top: -11%;
+  left: calc(2% + 18vh);
+  font-size: 2.5vmax;
+  font-weight: Bold;
+  line-height: 2vh;
+}
+#cnamePlus{
   background: transparent;
   position: absolute;
   top: -11%;
@@ -379,7 +410,17 @@ body {
     text-align: left;
   }
 }
-
+#cdescPlus{
+  display: flex;
+  font-size: 1.9vmax;
+  font-weight: lighter;
+  position: absolute;
+  top: 15%;
+  left: calc(5% + 18vh);
+  width: 70%;
+  line-height: 2.5rem;
+  text-align: left;
+}
 
 #cimg{
   background: #ffffff;
@@ -389,6 +430,19 @@ body {
   top: 5%;
   width: 18vh;
   height: 18vh;
+}
+#cimgPlus{
+  background: #ffffff;
+  border-radius: 10px;
+  position: absolute;
+  left: 1%;
+  top: 5%;
+  width: 18vh;
+  height: 18vh;
+}
+
+#clubInfoImg{
+  visibility: hidden;
 }
 
 #cmeet{
@@ -870,7 +924,7 @@ header .calendar-current-date {
 }
 
 .calendar-body .calendar-dates li {
-  margin-top: 30px;
+  margin-top: 20px;
   position: relative;
   z-index: 1;
   cursor: pointer;

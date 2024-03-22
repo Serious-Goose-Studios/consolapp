@@ -13,7 +13,7 @@ function addClub(){
 
 export default function ClubsPage(){
     const[isLoading, setIsLoading] = useState(false);
-    var ClubsList = {"Art Club":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"}, "Business Professionals of America":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"Environmental Club":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"AI/ML - Cybersecurity Club":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"Floral Club":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"Robotics Club":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"SkillsUSA":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"}}
+    var ClubsList = {"Art Club":{"descript":"A club for all things artsy.", "sponsor":"Mr. idk", "nextmeet":"Tommorrow", "roomnum":"2567"}, "Business Professionals of America":{"descript":"A club that competes in the Business Professionsals of America competition.", "sponsor":"Mrs. Fisher", "nextmeet":"Tommorrow", "roomnum":"2100"},"Environmental Club":{"descript":"A club dedicated to helping our environment through service.", "sponsor":"Mrs. idk", "nextmeet":"Tommorrow", "roomnum":"1923"},"AI/ML - Cybersecurity Club":{"descript":"A club that explores the realm of AI and Cybersecurity.", "sponsor":"Mr. Howard", "nextmeet":"Tommorrow", "roomnum":"2300"},"Floral Club":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"Robotics Club":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"SkillsUSA":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"}}
 
     function APIGetRequest(){
         setIsLoading(true);
@@ -41,21 +41,41 @@ export default function ClubsPage(){
                     const basicInfo = clubInfo.descript;
                     const meeting = clubInfo.nextmeet;
                     const hostRoom = clubInfo.roomnum;
-                    /* <p id="chost">Club Sponsor(s): {hostTeacher}</p>
-                    <p id="cmeet">Next Meeting: {meeting}</p>
-                    <p id="croom">Meeting in Room: {hostRoom}</p>
-                    */
                     return (
-                        <div id="clist" key={index}>
-                            <p id="cname">{clubName}</p>
-                            <p id="cdesc">{basicInfo}</p>
-                            <img id="cimg" alt="" src={TigerLogo} />
-                            <br/>
-                        </div>
+                            <div id="clist" key={index}>
+                                <p id="cname">{clubName}</p>
+                                <p id="cdesc">{basicInfo}</p>
+                                <img id="cimg" alt="" src={TigerLogo} onClick={openClubInfo}/>
+                                <br/>
+                                <div id="clubInfoPlus">
+                                    <CloseClubInfo />
+                                    <p id="cnamePlus">{clubName}</p>
+                                    <p id="cdescPlus">{basicInfo}</p>
+                                    <img id="cimgPlus" alt="" src={TigerLogo}/>
+                                    <p id="chost">Club Sponsor(s): {hostTeacher}</p>
+                                    <p id="cmeet">Next Meeting: {meeting}</p>
+                                    <p id="croom">Meeting in Room: {hostRoom}</p>
+                                </div>
+                            </div>
+
                     );
                 });
                 setClubArray(updatedArray);
             };
+
+            function CloseClubInfo() {
+                function close(){
+                  document.getElementById('clubInfoPlus').style.display = "none";
+                }
+              
+                return(
+                  <button className="cornerButton" onClick={close}>X</button>
+                );
+            }
+            const openClubInfo = () => {
+                document.getElementById('clubInfoPlus').style.display = "inline";
+            }
+
             const buttonRef = useRef(null);
             useEffect(() => {
                 buttonRef.current.addEventListener('click', updateArray);
