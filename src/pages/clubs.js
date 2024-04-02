@@ -13,7 +13,7 @@ function addClub(){
 
 export default function ClubsPage(){
     const[isLoading, setIsLoading] = useState(false);
-    var ClubsList = {"Art Club":{"descript":"A club for all things artsy.", "sponsor":"Mr. idk", "nextmeet":"Tommorrow", "roomnum":"2567"}, "Business Professionals of America":{"descript":"A club that competes in the Business Professionsals of America competition.", "sponsor":"Mrs. Fisher", "nextmeet":"Tommorrow", "roomnum":"2100"},"Environmental Club":{"descript":"A club dedicated to helping our environment through service.", "sponsor":"Mrs. idk", "nextmeet":"Tommorrow", "roomnum":"1923"},"AI/ML - Cybersecurity Club":{"descript":"A club that explores the realm of AI and Cybersecurity.", "sponsor":"Mr. Howard", "nextmeet":"Tommorrow", "roomnum":"2300"},"Floral Club":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"Robotics Club":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"SkillsUSA":{"descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"}}
+    var ClubsList = {"Art Club":{"exRef":"artInfo", "imgId":"artImg", "descript":"A club for all things artsy.", "sponsor":"Mr. idk", "nextmeet":"Tommorrow", "roomnum":"2567"}, "Business Professionals of America":{"exRef":"bpaInfo", "imgId":"bpaImg", "descript":"A club that competes in the Business Professionsals of America competition.", "sponsor":"Mrs. Fisher", "nextmeet":"Tommorrow", "roomnum":"2100"},"Environmental Club":{"exRef":"envInfo", "imgId":"envImg", "descript":"A club dedicated to helping our environment through service.", "sponsor":"Mrs. idk", "nextmeet":"Tommorrow", "roomnum":"1923"},"AI/ML - Cybersecurity Club":{"exRef":"aiInfo", "imgId":"aiImg", "descript":"A club that explores the realm of AI and Cybersecurity.", "sponsor":"Mr. Howard", "nextmeet":"Tommorrow", "roomnum":"2300"},"Floral Club":{"exRef":"floInfo", "imgId":"floImg","descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"Robotics Club":{"exRef":"roboInfo", "imgId":"roboImg", "descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"SkillsUSA":{"exRef":"skillInfo", "imgId":"skillImg", "descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"}}
 
     function APIGetRequest(){
         setIsLoading(true);
@@ -32,65 +32,63 @@ export default function ClubsPage(){
     ClubNames.sort();
     function ClubListing(){
         const [clubArray, setClubArray] = useState([""]);
-        
-            // Function to update the string
-            const updateArray = () => {
-                const updatedArray = ClubNames.map((clubName, index) => {
-                    const clubInfo = ClubsList[clubName];
-                    const hostTeacher = clubInfo.sponsor;
-                    const basicInfo = clubInfo.descript;
-                    const meeting = clubInfo.nextmeet;
-                    const hostRoom = clubInfo.roomnum;
-                    return (
-                            <div id="clist" key={index}>
-                                <p id="cname">{clubName}</p>
-                                <p id="cdesc">{basicInfo}</p>
-                                <img id="cimg" alt="" src={TigerLogo} onClick={openClubInfo}/>
-                                <br/>
-                                <div id="clubInfoPlus">
-                                    <CloseClubInfo />
-                                    <p id="cnamePlus">{clubName}</p>
-                                    <p id="cdescPlus">{basicInfo}</p>
-                                    <img id="cimgPlus" alt="" src={TigerLogo}/>
-                                    <p id="chost">Club Sponsor(s): {hostTeacher}</p>
-                                    <p id="cmeet">Next Meeting: {meeting}</p>
-                                    <p id="croom">Meeting in Room: {hostRoom}</p>
-                                </div>
+
+        // Function to update the string
+        const updateArray = () => {
+            const updatedArray = ClubNames.map((clubName, index) => {
+                const clubInfo = ClubsList[clubName];
+                const hostTeacher = clubInfo.sponsor;
+                const basicInfo = clubInfo.descript;
+                const meeting = clubInfo.nextmeet;
+                const hostRoom = clubInfo.roomnum;
+                const imgRef = clubInfo.imgId;
+                const exRef = clubInfo.exRef;
+                return (
+                        <div id="clist" key={index}>
+                            <p id="cname">{clubName}</p>
+                            <p id="cdesc">{basicInfo}</p>
+                            <img className="cimg" id={imgRef} alt="" src={TigerLogo} onClick={openClubInfo(exRef)}/>
+                            <br/>
+                            <div className="clubInfoPlus" id={exRef} style={{display: 'none'}}>
+                                <button className="cornerButton" id={imgRef} onClick={close(exRef)}>X</button>
+                                <p id="cnamePlus">{clubName}</p>
+                                <p id="cdescPlus">{basicInfo}</p>
+                                <img id="cimgPlus" alt="" src={TigerLogo}/>
+                                <p id="chost">Club Sponsor(s): {hostTeacher}</p>
+                                <p id="cmeet">Next Meeting: {meeting}</p>
+                                <p id="croom">Meeting in Room: {hostRoom}</p>
                             </div>
+                        </div>
 
-                    );
-                });
-                setClubArray(updatedArray);
-            };
-
-            function CloseClubInfo() {
-                function close(){
-                  document.getElementById('clubInfoPlus').style.display = "none";
-                }
-              
-                return(
-                  <button className="cornerButton" onClick={close}>X</button>
                 );
-            }
-            const openClubInfo = () => {
-                document.getElementById('clubInfoPlus').style.display = "inline";
-            }
+            });
+            setClubArray(updatedArray);
+        };
 
-            const buttonRef = useRef(null);
-            useEffect(() => {
-                buttonRef.current.addEventListener('click', updateArray);
-                buttonRef.current.click();
-            }, []);
-            
-            return (
-            <div>
-                {/* Display the string */}
-                <div>{clubArray}</div>
+        const close = (ref) => {
+            document.getElementById(ref).style.display = "none";
+        }
+
+        //opens Extra info for club
+        const openClubInfo = (ref) => {
+            document.getElementById(ref).style.display = "inline";
+        }
+
+        const buttonRef = useRef(null);
+        useEffect(() => {
+            buttonRef.current.addEventListener('click', updateArray);
+            buttonRef.current.click();
+        }, []);
         
-                {/* Button to update the string */}
-                <button ref={buttonRef} id="classUpdate" onClick={updateArray}>Update String</button>
-            </div>
-            );
+        return (
+        <div>
+            {/* Display the string */}
+            <div>{clubArray}</div>
+    
+            {/* Button to update the string */}
+            <button ref={buttonRef} id="classUpdate" onClick={updateArray}>Update String</button>
+        </div>
+        );
     }
 
     function updateStyle(){
