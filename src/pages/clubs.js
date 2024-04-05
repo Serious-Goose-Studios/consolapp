@@ -47,10 +47,10 @@ export default function ClubsPage(){
                         <div id="clist" key={index}>
                             <p id="cname">{clubName}</p>
                             <p id="cdesc">{basicInfo}</p>
-                            <img className="cimg" id={imgRef} alt="" src={TigerLogo} onClick={openClubInfo(exRef)}/>
+                            <img className="cimg" id={imgRef} alt="" src={TigerLogo} data-idref={exRef} onClick={openClubInfo(this)}/>
                             <br/>
-                            <div className="clubInfoPlus" id={exRef} style={{display: 'none'}}>
-                                <button className="cornerButton" id={imgRef} onClick={close(exRef)}>X</button>
+                            <div className="clubInfoPlus" id={exRef} style={"display:none"}>
+                                <button className="cornerButton" id={imgRef} data-idref={exRef} onClick={close(this)}>X</button>
                                 <p id="cnamePlus">{clubName}</p>
                                 <p id="cdescPlus">{basicInfo}</p>
                                 <img id="cimgPlus" alt="" src={TigerLogo}/>
@@ -66,12 +66,14 @@ export default function ClubsPage(){
         };
 
         const close = (ref) => {
-            document.getElementById(ref).style.display = "none";
+            infoID = ref.getAttribute('data-idref')
+            document.getElementById(infoID).style.display = "none";
         }
 
         //opens Extra info for club
         const openClubInfo = (ref) => {
-            document.getElementById(ref).style.display = "inline";
+            infoID = ref.getAttribute('data-idref')
+            document.getElementById(infoID).style.display = "inline";
         }
 
         const buttonRef = useRef(null);
