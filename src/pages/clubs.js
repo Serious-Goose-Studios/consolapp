@@ -2,6 +2,13 @@ import React from 'react';
 import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import TigerLogo from '../components/TigerLogo.png';
+import roboImg from '../components/roboImg.png';
+import artImg from '../components/roboImg.png';
+import bpaImg from '../components/roboImg.png';
+import envImg from '../components/roboImg.png';
+import aiImg from '../components/roboImg.png';
+import floImg from '../components/aiImg.png';
+import skillImg from '../components/skillImg.png';
 import home from '../components/home.png';
 import { homeButton } from './home.js';
 
@@ -41,16 +48,17 @@ export default function ClubsPage(){
                 const basicInfo = clubInfo.descript;
                 const meeting = clubInfo.nextmeet;
                 const hostRoom = clubInfo.roomnum;
-                const imgRef = clubInfo.imgId;
-                const exRef = clubInfo.exRef;
+                var imgRef = clubInfo.imgId;
+                var exRef = clubInfo.exRef;
+                var imgSrc = `../components/${imgRef}.png`;
                 return (
                         <div id="clist" key={index}>
                             <p id="cname">{clubName}</p>
                             <p id="cdesc">{basicInfo}</p>
-                            <img className="cimg" id={imgRef} alt="" src={TigerLogo} data-idref={exRef} onClick={openClubInfo(this)}/>
+                            <img className="cimg" id={imgRef} alt="" src={imgSrc} onClick={() => openClick(exRef)}/>
                             <br/>
-                            <div className="clubInfoPlus" id={exRef} style={"display:none"}>
-                                <button className="cornerButton" id={imgRef} data-idref={exRef} onClick={close(this)}>X</button>
+                            <div className="clubInfoPlus" id={exRef} style={{display:"none"}}>
+                                <button className="cornerButton" id={imgRef} onClick={() => closeClick(exRef)}>X</button>
                                 <p id="cnamePlus">{clubName}</p>
                                 <p id="cdescPlus">{basicInfo}</p>
                                 <img id="cimgPlus" alt="" src={TigerLogo}/>
@@ -65,15 +73,13 @@ export default function ClubsPage(){
             setClubArray(updatedArray);
         };
 
-        const close = (ref) => {
-            infoID = ref.getAttribute('data-idref')
-            document.getElementById(infoID).style.display = "none";
+        function closeClick(exRef) {
+            document.getElementById(exRef).style.display = "none";
         }
 
         //opens Extra info for club
-        const openClubInfo = (ref) => {
-            infoID = ref.getAttribute('data-idref')
-            document.getElementById(infoID).style.display = "inline";
+        function openClick(exRef) {
+            document.getElementById(exRef).style.display = "inline";
         }
 
         const buttonRef = useRef(null);
@@ -122,12 +128,3 @@ export default function ClubsPage(){
         </div>
     )
 }
-/*<form>
-    <input type="text" id="userin" defaultValue="Title" />
-    <input type="text" id="userin" defaultValue="Club Name" />
-    <input type="text" id="userin" defaultValue="Club Sponsor" />
-    <input type="text" id="userin" defaultValue="Short Club Description" />
-    <input type="text" id="userin" defaultValue="Next Meeting Date" />
-    <input type="text" id="userin" defaultValue="Meeting Room Number" />
-</form>
-*/
