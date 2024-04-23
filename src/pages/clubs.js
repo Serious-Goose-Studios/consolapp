@@ -2,13 +2,6 @@ import React from 'react';
 import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import TigerLogo from '../components/TigerLogo.png';
-import roboImg from '../components/roboImg.png';
-import artImg from '../components/roboImg.png';
-import bpaImg from '../components/roboImg.png';
-import envImg from '../components/roboImg.png';
-import aiImg from '../components/roboImg.png';
-import floImg from '../components/aiImg.png';
-import skillImg from '../components/skillImg.png';
 import home from '../components/home.png';
 import { homeButton } from './home.js';
 
@@ -20,7 +13,7 @@ function addClub(){
 
 export default function ClubsPage(){
     const[isLoading, setIsLoading] = useState(false);
-    var ClubsList = {"Art Club":{"exRef":"artInfo", "imgId":"artImg", "descript":"A club for all things artsy.", "sponsor":"Mr. idk", "nextmeet":"Tommorrow", "roomnum":"2567"}, "Business Professionals of America":{"exRef":"bpaInfo", "imgId":"bpaImg", "descript":"A club that competes in the Business Professionsals of America competition.", "sponsor":"Mrs. Fisher", "nextmeet":"Tommorrow", "roomnum":"2100"},"Environmental Club":{"exRef":"envInfo", "imgId":"envImg", "descript":"A club dedicated to helping our environment through service.", "sponsor":"Mrs. idk", "nextmeet":"Tommorrow", "roomnum":"1923"},"AI/ML - Cybersecurity Club":{"exRef":"aiInfo", "imgId":"aiImg", "descript":"A club that explores the realm of AI and Cybersecurity.", "sponsor":"Mr. Howard", "nextmeet":"Tommorrow", "roomnum":"2300"},"Floral Club":{"exRef":"floInfo", "imgId":"floImg","descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"Robotics Club":{"exRef":"roboInfo", "imgId":"roboImg", "descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"SkillsUSA":{"exRef":"skillInfo", "imgId":"skillImg", "descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"}}
+    var ClubsList = {"Art Club":{"dates":{"":{"month":"", "day":""}}, "exRef":"artInfo", "imgId":"artImg", "descript":"A club for all things artsy.", "sponsor":"Mr. idk", "nextmeet":"Tommorrow", "roomnum":"2567"}, "Business Professionals of America":{"dates":{"":{"month":"", "day":""}}, "exRef":"bpaInfo", "imgId":"bpaImg", "descript":"A club that competes in the Business Professionsals of America competition.", "sponsor":"Mrs. Fisher", "nextmeet":"Tommorrow", "roomnum":"2100"},"Environmental Club":{"dates":{"":{"month":"", "day":""}}, "exRef":"envInfo", "imgId":"envImg", "descript":"A club dedicated to helping our environment through service.", "sponsor":"Mrs. idk", "nextmeet":"Tommorrow", "roomnum":"1923"},"AI/ML - Cybersecurity Club":{"dates":{"":{"month":"", "day":""}}, "exRef":"aiInfo", "imgId":"aiImg", "descript":"A club that explores the realm of AI and Cybersecurity.", "sponsor":"Mr. Howard", "nextmeet":"Tommorrow", "roomnum":"2300"},"Floral Club":{"dates":{"":{"month":"", "day":""}}, "exRef":"floInfo", "imgId":"floImg","descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"Robotics Club":{"dates":{"":{"month":"", "day":""}}, "exRef":"roboInfo", "imgId":"roboImg", "descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"SkillsUSA":{"dates":{"":{"month":"", "day":""}}, "exRef":"skillInfo", "imgId":"skillImg", "descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"}}
 
     function APIGetRequest(){
         setIsLoading(true);
@@ -48,14 +41,13 @@ export default function ClubsPage(){
                 const basicInfo = clubInfo.descript;
                 const meeting = clubInfo.nextmeet;
                 const hostRoom = clubInfo.roomnum;
-                var imgRef = clubInfo.imgId;
-                var exRef = clubInfo.exRef;
-                var imgSrc = `../components/${imgRef}.png`;
+                const imgRef = clubInfo.imgId;
+                const exRef = clubInfo.exRef;
                 return (
                         <div id="clist" key={index}>
                             <p id="cname">{clubName}</p>
                             <p id="cdesc">{basicInfo}</p>
-                            <img className="cimg" id={imgRef} alt="" src={imgSrc} onClick={() => openClick(exRef)}/>
+                            <img className="cimg" id={imgRef} alt="" src={TigerLogo} onClick={() => openClick(exRef)}/>
                             <br/>
                             <div className="clubInfoPlus" id={exRef} style={{display:"none"}}>
                                 <button className="cornerButton" id={imgRef} onClick={() => closeClick(exRef)}>X</button>
