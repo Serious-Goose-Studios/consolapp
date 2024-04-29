@@ -13,7 +13,7 @@ function addClub(){
 
 export default function ClubsPage(){
     const[isLoading, setIsLoading] = useState(false);
-    var ClubsList = {"Art Club":{"dates":{"":{"month":"", "day":""}}, "exRef":"artInfo", "imgId":"artImg", "descript":"A club for all things artsy.", "sponsor":"Mr. idk", "nextmeet":"Tommorrow", "roomnum":"2567"}, "Business Professionals of America":{"dates":{"":{"month":"", "day":""}}, "exRef":"bpaInfo", "imgId":"bpaImg", "descript":"A club that competes in the Business Professionsals of America competition.", "sponsor":"Mrs. Fisher", "nextmeet":"Tommorrow", "roomnum":"2100"},"Environmental Club":{"dates":{"":{"month":"", "day":""}}, "exRef":"envInfo", "imgId":"envImg", "descript":"A club dedicated to helping our environment through service.", "sponsor":"Mrs. idk", "nextmeet":"Tommorrow", "roomnum":"1923"},"AI/ML - Cybersecurity Club":{"dates":{"":{"month":"", "day":""}}, "exRef":"aiInfo", "imgId":"aiImg", "descript":"A club that explores the realm of AI and Cybersecurity.", "sponsor":"Mr. Howard", "nextmeet":"Tommorrow", "roomnum":"2300"},"Floral Club":{"dates":{"":{"month":"", "day":""}}, "exRef":"floInfo", "imgId":"floImg","descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"Robotics Club":{"dates":{"":{"month":"", "day":""}}, "exRef":"roboInfo", "imgId":"roboImg", "descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"SkillsUSA":{"dates":{"":{"month":"", "day":""}}, "exRef":"skillInfo", "imgId":"skillImg", "descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"}}
+    var ClubsList = {"Art Club":{"dates":{"1":{"type":"meeting", "month":"1", "day":"30"}, "2":{"type":"meeting", "month":"4", "day":"30"}, "3":{"type":"meeting", "month":"5", "day":"14"}, "4":{"type":"meeting", "month":"6", "day":"23"}}, "exRef":"artInfo", "imgId":"artImg", "descript":"A club for all things artsy.", "sponsor":"Mr. idk", "nextmeet":"Tommorrow", "roomnum":"2567"}, "Business Professionals of America":{"dates":{"1":{"type":"meeting", "month":"1", "day":"30"}, "2":{"type":"meeting", "month":"4", "day":"30"}}, "exRef":"bpaInfo", "imgId":"bpaImg", "descript":"A club that competes in the Business Professionsals of America competition.", "sponsor":"Mrs. Fisher", "nextmeet":"Tommorrow", "roomnum":"2100"},"Environmental Club":{"dates":{"1":{"type":"meeting", "month":"1", "day":"30"}, "2":{"type":"meeting", "month":"4", "day":"30"}}, "exRef":"envInfo", "imgId":"envImg", "descript":"A club dedicated to helping our environment through service.", "sponsor":"Mrs. idk", "nextmeet":"Tommorrow", "roomnum":"1923"},"AI/ML - Cybersecurity Club":{"dates":{"1":{"type":"meeting", "month":"1", "day":"30"}, "2":{"type":"meeting", "month":"4", "day":"30"}}, "exRef":"aiInfo", "imgId":"aiImg", "descript":"A club that explores the realm of AI and Cybersecurity.", "sponsor":"Mr. Howard", "nextmeet":"Tommorrow", "roomnum":"2300"},"Floral Club":{"dates":{"1":{"type":"meeting", "month":"1", "day":"30"}, "2":{"type":"meeting", "month":"4", "day":"30"}}, "exRef":"floInfo", "imgId":"floImg","descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"Robotics Club":{"dates":{"1":{"type":"meeting", "month":"1", "day":"30"}, "2":{"type":"meeting", "month":"4", "day":"30"}}, "exRef":"roboInfo", "imgId":"roboImg", "descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"SkillsUSA":{"dates":{"1":{"type":"meeting", "month":"1", "day":"30"}, "2":{"type":"meeting", "month":"4", "day":"30"}}, "exRef":"skillInfo", "imgId":"skillImg", "descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"}}
 
     function APIGetRequest(){
         setIsLoading(true);
@@ -27,7 +27,57 @@ export default function ClubsPage(){
     useEffect(() => {
         APIGetRequest()
     },[]);
+    function UpcomingEvents() {
+        // State variable to hold the string
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = date.getMonth();
+        let day = date.getDay()
+        const [eventsArray, setEventsArray] = useState([""]);
     
+        // Function to update the string
+        const updateUpcomingEvents = () => {
+            let updatedArray = [];
+            ClubNames.forEach((clubName) => {
+                const clubInfo = ClubsList[clubName];
+                const eventDates = clubInfo.dates
+                const eventList = Object.keys(eventDates);
+                updatedArray = eventList.forEach((index) => {
+                    const eventIndex = eventDates[index];
+                    const eventType = eventIndex.type;
+                    const eventMonth = eventIndex.month;
+                    const eventDay = eventIndex.day;
+                    if(eventMonth <= month && eventDay <= day){
+                        updatedArray.push (
+                            <div id="upcomingEvents" key={index}>
+                                {eventType}
+                            </div>
+                        );
+                    }
+                    else{
+                        return;
+                    }
+                })
+            });
+            setEventsArray(updatedArray);
+        };
+        const buttonRef = useRef(null);
+        useEffect(() => {
+            buttonRef.current.addEventListener('click', updateUpcomingEvents);
+            buttonRef.current.click();
+        }, []);
+        
+        return (
+        <div>
+            {/* Display the string */}
+            <div>{eventsArray}</div>
+    
+            {/* Button to update the string */}
+            <button ref={buttonRef} id="classUpdate" onClick={updateUpcomingEvents}>Update String</button>
+        </div>
+        );
+    }
+
     const ClubNames  = Object.keys(ClubsList)
     ClubNames.sort();
     function ClubListing(){
@@ -57,6 +107,7 @@ export default function ClubsPage(){
                                 <p id="chost">Club Sponsor(s): {hostTeacher}</p>
                                 <p id="cmeet">Next Meeting: {meeting}</p>
                                 <p id="croom">Meeting in Room: {hostRoom}</p>
+                                <UpcomingEvents/>
                             </div>
                         </div>
 
