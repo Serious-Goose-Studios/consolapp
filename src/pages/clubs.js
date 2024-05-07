@@ -13,7 +13,7 @@ function addClub(){
 
 export default function ClubsPage(){
     const[isLoading, setIsLoading] = useState(false);
-    var ClubsList = {"Art Club":{"dates":{"1":{"type":"meeting", "month":"1", "day":"30"}, "2":{"type":"meeting", "month":"4", "day":"30"}, "3":{"type":"meeting", "month":"5", "day":"14"}, "4":{"type":"meeting", "month":"6", "day":"23"}}, "exRef":"artInfo", "imgId":"artImg", "descript":"A club for all things artsy.", "sponsor":"Mr. idk", "nextmeet":"Tommorrow", "roomnum":"2567"}, "Business Professionals of America":{"dates":{"1":{"type":"meeting", "month":"1", "day":"30"}, "2":{"type":"meeting", "month":"4", "day":"30"}}, "exRef":"bpaInfo", "imgId":"bpaImg", "descript":"A club that competes in the Business Professionsals of America competition.", "sponsor":"Mrs. Fisher", "nextmeet":"Tommorrow", "roomnum":"2100"},"Environmental Club":{"dates":{"1":{"type":"meeting", "month":"1", "day":"30"}, "2":{"type":"meeting", "month":"4", "day":"30"}}, "exRef":"envInfo", "imgId":"envImg", "descript":"A club dedicated to helping our environment through service.", "sponsor":"Mrs. idk", "nextmeet":"Tommorrow", "roomnum":"1923"},"AI/ML - Cybersecurity Club":{"dates":{"1":{"type":"meeting", "month":"1", "day":"30"}, "2":{"type":"meeting", "month":"4", "day":"30"}}, "exRef":"aiInfo", "imgId":"aiImg", "descript":"A club that explores the realm of AI and Cybersecurity.", "sponsor":"Mr. Howard", "nextmeet":"Tommorrow", "roomnum":"2300"},"Floral Club":{"dates":{"1":{"type":"meeting", "month":"1", "day":"30"}, "2":{"type":"meeting", "month":"4", "day":"30"}}, "exRef":"floInfo", "imgId":"floImg","descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"Robotics Club":{"dates":{"1":{"type":"meeting", "month":"1", "day":"30"}, "2":{"type":"meeting", "month":"4", "day":"30"}}, "exRef":"roboInfo", "imgId":"roboImg", "descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"SkillsUSA":{"dates":{"1":{"type":"meeting", "month":"1", "day":"30"}, "2":{"type":"meeting", "month":"4", "day":"30"}}, "exRef":"skillInfo", "imgId":"skillImg", "descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"}}
+    var ClubsList = {"Art Club":{"dates":{"1":{"type":"meeting", "month":"1", "day":"30"}, "2":{"type":"meeting", "month":"5", "day":"7"}, "3":{"type":"meeting", "month":"5", "day":"14"}, "4":{"type":"meeting", "month":"6", "day":"23"}}, "exRef":"artInfo", "imgId":"artImg", "descript":"A club for all things artsy.", "sponsor":"Mr. idk", "nextmeet":"Tommorrow", "roomnum":"2567"}, "Business Professionals of America":{"dates":{"1":{"type":"meeting", "month":"1", "day":"30"}, "2":{"type":"meeting", "month":"4", "day":"30"}}, "exRef":"bpaInfo", "imgId":"bpaImg", "descript":"A club that competes in the Business Professionsals of America competition.", "sponsor":"Mrs. Fisher", "nextmeet":"Tommorrow", "roomnum":"2100"},"Environmental Club":{"dates":{"1":{"type":"meeting", "month":"1", "day":"30"}, "2":{"type":"meeting", "month":"4", "day":"30"}}, "exRef":"envInfo", "imgId":"envImg", "descript":"A club dedicated to helping our environment through service.", "sponsor":"Mrs. idk", "nextmeet":"Tommorrow", "roomnum":"1923"},"AI/ML - Cybersecurity Club":{"dates":{"1":{"type":"meeting", "month":"1", "day":"30"}, "2":{"type":"meeting", "month":"4", "day":"30"}}, "exRef":"aiInfo", "imgId":"aiImg", "descript":"A club that explores the realm of AI and Cybersecurity.", "sponsor":"Mr. Howard", "nextmeet":"Tommorrow", "roomnum":"2300"},"Floral Club":{"dates":{"1":{"type":"meeting", "month":"1", "day":"30"}, "2":{"type":"meeting", "month":"4", "day":"30"}}, "exRef":"floInfo", "imgId":"floImg","descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"Robotics Club":{"dates":{"1":{"type":"meeting", "month":"1", "day":"30"}, "2":{"type":"meeting", "month":"4", "day":"30"}}, "exRef":"roboInfo", "imgId":"roboImg", "descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"},"SkillsUSA":{"dates":{"1":{"type":"meeting", "month":"1", "day":"30"}, "2":{"type":"meeting", "month":"4", "day":"30"}}, "exRef":"skillInfo", "imgId":"skillImg", "descript":"The Roar is our schools newspaper that shines light on student researched and written topics.", "sponsor":"Mr. Williams", "nextmeet":"Tommorrow", "roomnum":"2303"}}
 
     function APIGetRequest(){
         setIsLoading(true);
@@ -31,7 +31,7 @@ export default function ClubsPage(){
         // State variable to hold the string
         let date = new Date();
         let year = date.getFullYear();
-        let month = date.getMonth();
+        let month = date.getMonth() + 1;
         let day = date.getDay()
         const [eventsArray, setEventsArray] = useState([""]);
     
@@ -47,9 +47,11 @@ export default function ClubsPage(){
                     const eventType = eventIndex.type;
                     const eventMonth = eventIndex.month;
                     const eventDay = eventIndex.day;
-                    if(eventMonth <= month && eventDay <= day){
-                        updatedArray.push (
-                            <div id="upcomingEvents" key={index}>
+                    console.log(month);
+                    if(eventMonth >= month && eventDay >= day){
+                        console.log("hello");
+                        return (
+                            <div id="clubEvents" key={index}>
                                 {eventType}
                             </div>
                         );
@@ -59,6 +61,7 @@ export default function ClubsPage(){
                     }
                 })
             });
+            console.log(updatedArray);
             setEventsArray(updatedArray);
         };
         const buttonRef = useRef(null);

@@ -44,6 +44,7 @@ export default function Calendar(){
                     </div>
                 );
             });
+            console.log(updatedArray);
             setEventsArray(updatedArray);
         };
         const buttonRef = useRef(null);
