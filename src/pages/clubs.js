@@ -27,59 +27,7 @@ export default function ClubsPage(){
     useEffect(() => {
         APIGetRequest()
     },[]);
-    function UpcomingEvents() {
-        // State variable to hold the string
-        let date = new Date();
-        let year = date.getFullYear();
-        let month = date.getMonth() + 1;
-        let day = date.getDay()
-        const [eventsArray, setEventsArray] = useState([""]);
     
-        // Function to update the string
-        const updateUpcomingEvents = () => {
-            let updatedArray = [];
-            ClubNames.forEach((clubName) => {
-                const clubInfo = ClubsList[clubName];
-                const eventDates = clubInfo.dates
-                const eventList = Object.keys(eventDates);
-                updatedArray = eventList.forEach((index) => {
-                    const eventIndex = eventDates[index];
-                    const eventType = eventIndex.type;
-                    const eventMonth = eventIndex.month;
-                    const eventDay = eventIndex.day;
-                    console.log(month);
-                    if(eventMonth >= month && eventDay >= day){
-                        console.log("hello");
-                        return (
-                            <div id="clubEvents" key={index}>
-                                {eventType}
-                            </div>
-                        );
-                    }
-                    else{
-                        return;
-                    }
-                })
-            });
-            console.log(updatedArray);
-            setEventsArray(updatedArray);
-        };
-        const buttonRef = useRef(null);
-        useEffect(() => {
-            buttonRef.current.addEventListener('click', updateUpcomingEvents);
-            buttonRef.current.click();
-        }, []);
-        
-        return (
-        <div>
-            {/* Display the string */}
-            <div>{eventsArray}</div>
-    
-            {/* Button to update the string */}
-            <button ref={buttonRef} id="classUpdate" onClick={updateUpcomingEvents}>Update String</button>
-        </div>
-        );
-    }
 
     const ClubNames  = Object.keys(ClubsList)
     ClubNames.sort();
@@ -110,7 +58,6 @@ export default function ClubsPage(){
                                 <p id="chost">Club Sponsor(s): {hostTeacher}</p>
                                 <p id="cmeet">Next Meeting: {meeting}</p>
                                 <p id="croom">Meeting in Room: {hostRoom}</p>
-                                <UpcomingEvents/>
                             </div>
                         </div>
 
